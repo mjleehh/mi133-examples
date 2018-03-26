@@ -7,7 +7,7 @@ export default class App extends React.Component {
     constructor() {
         super()
 
-        this.state = {width: 4, height: 5}
+        this.state = {width: 5, height: 5}
 
         this.changeWidth = (e) => this.setState({width: e.target.value})
         this.changeHeight = (e) => this.setState({height: e.target.value})
@@ -16,13 +16,14 @@ export default class App extends React.Component {
     render() {
         const {width, height} = this.state
 
-        return <div className="column">
-            <div className="row">
-                <div>width:
-                    <input onChange={this.changeWidth} type="number" min="1" max="12" value={width}/>
+        return <div className="column appContainer">
+            <div className="row matrixSettings">
+                <div>WIDTH:
+                    <input className="numberInput" type="number" min="1" max="12" value={width} onChange={this.changeWidth}/>
                 </div>
-                <div>height:
-                    <input onChange={this.changeHeight} type="number" min="1" max="12" value={height}/>
+                <div className="timesBox">&#215;</div>
+                <div>HEIGHT:
+                    <input className="numberInput" type="number" min="1" max="12" value={height} onChange={this.changeHeight}/>
                 </div>
             </div>
             <LedMatrix width={width} height={height} />

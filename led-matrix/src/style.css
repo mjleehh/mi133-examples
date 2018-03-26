@@ -1,0 +1,39 @@
+.pageContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body {
+    background: lightskyblue;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.led {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px;
+}
+
+.ledDot {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.activeLedDot {
+    background: red;
+}
+
+.inactiveLedDot {
+    background: slategrey;
+}

@@ -15,7 +15,7 @@ export default {
 
     setValue: (matrix, x, y, value) => {
         const {values, width} = matrix
-        values.splice(0)
+        values.slice()
         values[y * width + x] = value
         return {...matrix, values}
     },

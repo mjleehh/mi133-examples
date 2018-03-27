@@ -8,7 +8,7 @@ import {
 import m from './matrix'
 
 const initialState = () => ({
-    matrix: m.create(0, 0)
+    matrix: m.create(5, 5)
 })
 
 export default function reducer(state = initialState(), action) {
@@ -18,7 +18,10 @@ export default function reducer(state = initialState(), action) {
         case TOGGLE_LED_STATE: {
             const {matrix} = state
             const {x, y} = payload
-            return m.setValue(matrix, x, y, !m.getValue(matrix, x, y))
+            return {
+                ...state,
+                matrix: m.setValue(matrix, x, y, !m.getValue(matrix, x, y))
+            }
         }
         case SET_MATRIX_WIDTH: {
             const {height} = state.matrix

@@ -28,3 +28,7 @@ to run an example.
 `/led-matrix`: simple example of a react app keeping its state in the components.
 
 ![led matrix screenshot](resources/led-matrix.png)
+
+`/led-matrix-plain-react`: same user flow as `led-matrix` using Redux state container. 
+
+![redux led matrix screenshot](resources/led-matrix-plain-react.png)

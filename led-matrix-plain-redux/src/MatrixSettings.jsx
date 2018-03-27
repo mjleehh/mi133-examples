@@ -6,7 +6,7 @@ import {
     setMatrixHeight,
 } from './actions'
 
-@connect(({matrixWidth, matrixHeight}) => ({matrixWidth, matrixHeight}))
+@connect(({matrix: {width, height}}) => ({width, height}))
 export default class MatrixSettings extends React.Component {
     constructor() {
         super()
@@ -16,18 +16,18 @@ export default class MatrixSettings extends React.Component {
     }
 
     render() {
-        const {matrixWidth, matrixHeight} = this.props
+        const {width, height} = this.props
 
         return <div className="row matrixSettings">
             <div>WIDTH:
                 <input className="numberInput"
-                       type="number" value={matrixWidth} min="0" max="12"
+                       type="number" value={width} min="0" max="12"
                        onChange={this.changeWidth}/>
             </div>
             <div className="timesBox">&#215;</div>
             <div>HEIGHT:
                 <input className="numberInput"
-                       type="number" value={matrixHeight} min="0" max="12"
+                       type="number" value={height} min="0" max="12"
                        onChange={this.changeHeight}/>
             </div>
         </div>

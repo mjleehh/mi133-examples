@@ -5,10 +5,10 @@ import {
 
 } from './actions'
 
+import m from './matrix'
+
 const initialState = () => ({
-    leds: [],
-    matrixWidth: 0,
-    matrixHeight: 0,
+    matrix: m.create(0, 0)
 })
 
 export default function reducer(state = initialState(), action) {
@@ -16,13 +16,17 @@ export default function reducer(state = initialState(), action) {
 
     switch (type) {
         case TOGGLE_LED_STATE: {
-            return state
+            const {matrix} = state
+            const {x, y} = payload
+            return m.setValue(matrix, x, y, !m.getValue(matrix, x, y))
         }
         case SET_MATRIX_WIDTH: {
-            return state
+            const {height} = state.matrix
+            return {...state, matrix: m.create(payload, height)}
         }
         case SET_MATRIX_HEIGHT: {
-            return state
+            const {width} = state.matrix
+            return {...state, matrix: m.create(width, payload)}
         }
         default:
             return state

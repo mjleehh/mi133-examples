@@ -1,22 +1,22 @@
 export default {
     create: (width, height, initialValue = false) => {
-        const values = new Array(width * height).fill(initialValue)
+        const pixels = new Array(width * height).fill(initialValue)
         return {
-            values,
+            pixels,
             width,
             height,
         }
     },
 
-    getValue: (matrix, x, y, value) => {
-        const {values, width} = matrix
-        return values[y * width + x]
+    getValue: (matrix, x, y) => {
+        const {pixels, width} = matrix
+        return pixels[y * width + x]
     },
 
-    setValue: (matrix, x, y, value) => {
-        const {values, width} = matrix
-        values.slice()
-        values[y * width + x] = value
-        return {...matrix, values}
+    setValue: (matrix, x, y, pixelValue) => {
+        const {pixels, width} = matrix
+        pixels.slice()
+        pixels[y * width + x] = pixelValue
+        return {...matrix, pixels}
     },
 }

@@ -1,15 +1,20 @@
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-import {devToolsEnhancer} from 'redux-devtools-extension'
+import {createStore, applyMiddleware} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reducer from './reducer'
 import './style.css'
 import App from './App'
 
+import {fetchMatrix} from './actions'
+
 const store = createStore(
     reducer,
-    devToolsEnhancer())
+    composeWithDevTools(applyMiddleware(thunk)))
+
+store.dispatch(fetchMatrix())
 
 ReactDOM.render(
     <Provider store={store}>

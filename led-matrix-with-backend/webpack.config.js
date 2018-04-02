@@ -36,4 +36,12 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
     ],
     devtool: 'source-map',
+    devServer: {
+        proxy: {
+            "/api": {
+                target: "http://localhost:3000/api",
+                pathRewrite: {"^/api": ""},
+            }
+        }
+    }
 }

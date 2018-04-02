@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {toggleLedState} from './actions'
+import {setPixel} from './actions'
 import m from '../common/matrix'
 
 /**
@@ -37,7 +37,10 @@ export default class LedMatrix extends React.Component {
         super(props)
 
         // higher order function that creates an event handler
-        this.handleClick = (x, y) => () => this.props.dispatch(toggleLedState(x, y))
+        this.handleClick = (x, y) => () => {
+            const {dispatch, matrix} = this.props
+            dispatch(setPixel(x, y, !m.getValue(matrix, x, y)))
+        }
     }
 
     /**

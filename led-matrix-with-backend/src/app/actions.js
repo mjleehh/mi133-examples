@@ -1,8 +1,27 @@
-export const TOGGLE_LED_STATE = 'TOGGLE_LED_STATE'
-export const toggleLedState = (x, y) => ({type: TOGGLE_LED_STATE, payload: {x, y}})
+import axios from 'axios'
 
-export const SET_MATRIX_WIDTH = 'SET_MATRIX_WIDTH'
-export const setMatrixWidth = width => ({type: SET_MATRIX_WIDTH, payload: width})
+export const PIXELS_FETCHED = 'PIXELS_FETCHED'
+export const pixelsFetched = pixels => ({type: PIXELS_FETCHED, payload: pixels})
 
-export const SET_MATRIX_HEIGHT = 'SET_MATRIX_HEIGHT'
-export const setMatrixHeight = height => ({type: SET_MATRIX_HEIGHT, payload: height})
+export const MATRIX_FETCHED = 'MATRIX_FETCHED'
+export const matrixFetched = matrix => ({type: MATRIX_FETCHED, payload: matrix})
+
+export const setPixel = (x, y, pixelValue) => async dispatch => {
+    const {data: {pixels}} = await axios.put(`/api/led-matrix/pixel/${x}/${y}`, {pixelValue})
+    dispatch(pixelsFetched(pixels))
+}
+
+export const setMatrixHeight = height => async dispatch => {
+    const {data} = await axios.put('/api/led-matrix/height', {height})
+    dispatch(matrixFetched(data))
+}
+
+export const setMatrixWidth = width => async dispatch => {
+    const {data} = await axios.put('/api/led-matrix/width', {width})
+    dispatch(matrixFetched(data))
+}
+
+export const fetchMatrix = () => async dispatch => {
+    const {data} = await axios.get('/api/led-matrix')
+    dispatch(matrixFetched(data))
+}

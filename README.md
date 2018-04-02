@@ -29,7 +29,7 @@ to run an example.
 
 ![led matrix screenshot](resources/led-matrix.png)
 
-`/led-matrix-plain-react`: same user flow as `led-matrix` using Redux state container.
+`/led-matrix-plain-redux`: same user flow as `led-matrix` using Redux state container.
 
 ![redux led matrix screenshot](resources/led-matrix-plain-redux.png)
 

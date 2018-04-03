@@ -36,3 +36,7 @@ to run an example.
 `/led-matrix-with-backend`: same user flow as `led-matrix` using a backend.
 
 ![backend log screenshot](resources/led-matrix-with-backend.png)
+
+`/led-matrix-with-db`: same user flow as `led-matrix` with MongoDB storage.
+
+![mongo collection screenshot](resources/led-matrix-with-db.png)

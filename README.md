@@ -23,6 +23,11 @@ $ npm start
 
 to run an example.
 
+**NOTE:** On windows systems you may encounter problems with symbolic links. If
+you get an error reporting an invalid `.babelrc` copy the `.babelrc` file from
+the root directory to the example folder you want to use
+(overwriting the symlink).
+
 ### List of examples:
 
 `/led-matrix`: simple example of a react app keeping its state in the components.

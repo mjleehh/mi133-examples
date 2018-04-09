@@ -4,7 +4,7 @@ import {devToolsEnhancer} from 'redux-devtools-extension'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reducer from './reducer'
-import './style.css'
+import './style.scss'
 import App from './App'
 
 const store = createStore(

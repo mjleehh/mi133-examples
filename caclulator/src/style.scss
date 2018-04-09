@@ -62,3 +62,39 @@ body {
     text-align: center;
 }
 
+.digitsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.displayContainer {
+    background: #cceeff;
+    padding: 0.2em;
+}
+
+.displayRow {
+    height: 1em;
+}
+
+.buttonColum {
+    @extend .column
+
+}
+
+.calcButton {
+    width: 2em;
+    height: 1.7em;
+    background: #c0c0c0;
+    border: none;
+}
+
+.operationsButton {
+    @extend .calcButton;
+    background: #dadada;
+}
+
+.equalsButton {
+    @extend .calcButton;
+    width: 6em;
+    background: #5dc9ff;
+}

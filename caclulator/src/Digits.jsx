@@ -1,19 +1,45 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
-import {addDigit} from './actions'
 
-@connect()
+/**
+ * Digit input field
+ *
+ * This is an example of a reusable plain react component. All event handlers need to be set externally using props.
+ */
 export default class Digits extends React.Component {
     constructor() {
         super()
 
-        this.handleClick = () => this.props.dispatch(addDigit(1))
+        this.handleDigit = digit => () => {
+            const {onDigit} = this.props
+            if (!onDigit) {
+                console.log('warning: no digit handler preset')
+                return
+            }
+            onDigit(digit)
+        }
     }
 
     render() {
-        return <div>
-            <button onClick={this.handleClick}>1</button>
+        const digits = []
+        for (let i = 1; i <= 9; ++i) {
+            digits.push(
+                <button className="calcButton" key={i} onClick={this.handleDigit(i)}>{i}</button>)
+        }
+
+        let {onDot, onRemoveDigit} = this.props
+        if (!onDot) {
+            onDot = () => console.log('warning no "on dot" handler present')
+        }
+        if (!onRemoveDigit) {
+            onRemoveDigit = () => console.log('warning no "remove digit" handler present')
+        }
+
+        return <div className="digitsContainer">
+            {digits}
+            <button className="calcButton" onClick={onDot}>.</button>
+            <button className="calcButton" onClick={this.handleDigit('0')}>0</button>
+            <button className="calcButton" onClick={onRemoveDigit}>←</button>
         </div>
     }
 }

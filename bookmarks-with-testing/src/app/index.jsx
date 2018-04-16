@@ -7,10 +7,14 @@ import ReactDOM from 'react-dom'
 import reducer from './reducer'
 import './style.css'
 import App from './App'
+import {requestSetBookmarks} from './actions'
+
 
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(thunk)))
+
+store.dispatch(requestSetBookmarks())
 
 ReactDOM.render(
     <Provider store={store}>

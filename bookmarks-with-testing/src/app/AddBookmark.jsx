@@ -1,7 +1,7 @@
 import {connect} from "react-redux"
 import React from "react"
 
-import {addBookmark} from './actions'
+import {addBookmark, requestAddBookmark} from './actions'
 
 @connect()
 export default class AddBookmark extends React.Component {
@@ -18,7 +18,7 @@ export default class AddBookmark extends React.Component {
         this.handleSubmit = e => {
             e.preventDefault()
             const {name, url} = this.state
-            this.props.dispatch(addBookmark(name, url))
+            this.props.dispatch(requestAddBookmark(name, url))
             this.setState({
                 name: '',
                 url: '',

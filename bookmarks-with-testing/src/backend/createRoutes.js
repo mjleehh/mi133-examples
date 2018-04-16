@@ -30,6 +30,29 @@ export default function createRoutes() {
         next()
     })
 
+    router.post('/bookmark', async (ctx, next) => {
+        const bookmark = new Bookmark(ctx.request.body)
+
+        try {
+            await bookmark.validate()
+        } catch (e) {
+            ctx.body = {error: e.message}
+            ctx.status = 400
+            return
+        }
+
+        try {
+            const savedBookmark = await bookmark.save()
+            ctx.body = filterBookmarkProperties(savedBookmark)
+        } catch (e) {
+            console.log(e)
+            ctx.status = 500
+            return
+        }
+
+        next()
+    })
+
     router.get('/bookmark/:bookmarkId', async (ctx, next) => {
         const {bookmarkId} = ctx.params
 
@@ -49,20 +72,12 @@ export default function createRoutes() {
         next()
     })
 
-    router.put('/bookmark', async (ctx, next) => {
-        const bookmark = new Bookmark(ctx.request.body)
+    router.del('/bookmark/:bookmarkId', async (ctx, next) => {
+        const {bookmarkId} = ctx.params
 
         try {
-            await bookmark.validate()
-        } catch (e) {
-            ctx.body = {error: e.message}
-            ctx.status = 400
-            return
-        }
-
-        try {
-            const savedBookmark = await bookmark.save()
-            ctx.body = filterBookmarkProperties(savedBookmark)
+            await Bookmark.remove({_id: bookmarkId})
+            ctx.body = {}
         } catch (e) {
             console.log(e)
             ctx.status = 500

@@ -24,11 +24,19 @@ export const requestSetBookmarks = () => async dispatch => {
 
 export const requestAddBookmark = (name, url) => async dispatch => {
     try {
-        const {data: bookmark} = await axios.put('/api/bookmark', {name, url})
+        const {data: bookmark} = await axios.post('/api/bookmark', {name, url})
         dispatch(addBookmark(bookmark))
     } catch (e) {
         console.error(e)
     }
 }
 
+export const requestRemoveBookmark = id => async dispatch => {
+    try {
+        await axios.delete(`/api/bookmark/${id}`)
+        dispatch(removeBookmark(id))
+    } catch (e) {
+        console.error(e)
+    }
+}
 

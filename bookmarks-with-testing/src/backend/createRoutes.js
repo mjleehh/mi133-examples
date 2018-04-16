@@ -72,6 +72,46 @@ export default function createRoutes() {
         next()
     })
 
+    router.put('/bookmark/:bookmarkId/name', async (ctx, next) => {
+        const {bookmarkId} = ctx.params
+
+        try {
+            const {name} = ctx.request.body
+            const savedBookmark = await Bookmark.update({_id: bookmarkId}, {$set: {name}})
+            if (savedBookmark == null) {
+                ctx.status = 404
+                ctx.body = {error: `no such bookmark ${bookmarkId}`}
+                return
+            }
+            ctx.body = filterBookmarkProperties(savedBookmark)
+        } catch (e) {
+            console.log(e)
+            ctx.status = 500
+            return
+        }
+        next()
+    })
+
+    router.put('/bookmark/:bookmarkId/url', async (ctx, next) => {
+        const {bookmarkId} = ctx.params
+
+        try {
+            const {url} = ctx.request.body
+            const savedBookmark = await Bookmark.update({_id: bookmarkId}, {$set: {url}})
+            if (savedBookmark == null) {
+                ctx.status = 404
+                ctx.body = {error: `no such bookmark ${bookmarkId}`}
+                return
+            }
+            ctx.body = filterBookmarkProperties(savedBookmark)
+        } catch (e) {
+            console.log(e)
+            ctx.status = 500
+            return
+        }
+        next()
+    })
+
     router.del('/bookmark/:bookmarkId', async (ctx, next) => {
         const {bookmarkId} = ctx.params
 

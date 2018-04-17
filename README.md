@@ -45,3 +45,7 @@ the root directory to the example folder you want to use
 `/led-matrix-with-db`: same user flow as `led-matrix` with MongoDB storage.
 
 ![mongo collection screenshot](resources/led-matrix-with-db.png)
+
+`/calculator`: A calculator lab assignment solution.
+
+![calculator screenshot](resources/calculator.png)

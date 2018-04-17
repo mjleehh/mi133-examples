@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npx webpack --mode production",
     "start": "./scripts/start.sh",
-    "test": "npx jest"
+    "test": "npx jest --coverage"
   },
   "author": "Michael Jonathan Lee",
   "dependencies": {

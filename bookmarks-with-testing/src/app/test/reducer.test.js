@@ -1,61 +1,75 @@
 import reducer from '../reducer'
 import {
-    addBookmark, removeBookmark,
+    addBookmark, changeBookmarkName, changeBookmarkUrl, removeBookmark,
     setBookmarks
 } from "../actions"
 
-test('has initial state', () => {
-    const state = reducer(undefined, {type: '@@INIT'})
+import {bookmarkGenerator, next} from './helpers'
 
-    expect(state.bookmarks).toEqual([])
-})
+describe('the main reducer', () => {
+    it('has initial state', () => {
+        const state = reducer(undefined, {type: '@@INIT'})
 
-test('bookmarks can be set', () => {
-    const bookmarks = [
-        {
-            _id: '5ad49ee9773dfc6d96b637ad',
-            name: 'google',
-            url: 'https://www.google.com'
-        },
-        {
-            _id: '5ad4a1c27288f070d99020c7',
-            name: 'yahoo',
-            url: 'http://yahoo.com'
-        },
-    ]
-    const action = setBookmarks(bookmarks)
-    const state = reducer(undefined, action)
+        expect(state.bookmarks).toEqual([])
+    })
 
-    expect(state.bookmarks).toEqual(expect.arrayContaining(bookmarks))
-})
+    it('can set bookmarks', () => {
+        const bookmarks = [...bookmarkGenerator()]
+        const action = setBookmarks(bookmarks)
+        const state = reducer(undefined, action)
 
-test('bookmarks can be added', () => {
-    const bookmark = {
-        _id: '5ad49ee9773dfc6d96b637ad',
-        name: 'google',
-        url: 'https://www.google.com'
-    }
-    const action = addBookmark(bookmark)
-    const state = reducer(undefined, action)
+        expect(state.bookmarks).toEqual(expect.arrayContaining(bookmarks))
+    })
 
-    expect(state.bookmarks).toContainEqual(bookmark)
-})
+    it('can add a bookmark', () => {
+        const bookmark = next(bookmarkGenerator())
+        const action = addBookmark(bookmark)
+        const state = reducer(undefined, action)
 
-test('bookmarks can be added', () => {
-    const bookmark1 = {
-        _id: '5ad49ee9773dfc6d96b637ad',
-        name: 'google',
-        url: 'https://www.google.com'
-    }
-    const bookmark2 = {
-        _id: '5ad4a1c27288f070d99020c7',
-        name: 'yahoo',
-        url: 'http://yahoo.com'
-    }
-    const initialState = {bookmarks: [bookmark1, bookmark2]}
+        expect(state.bookmarks).toContainEqual(bookmark)
+    })
 
-    const action = removeBookmark('5ad49ee9773dfc6d96b637ad')
-    const state = reducer(initialState, action)
+    it('can change a bookmark name', () => {
+        const gen = bookmarkGenerator()
+        const bookmark1 = next(gen)
+        const bookmark2 = next(gen)
+        const initialState = {bookmarks: [bookmark1, bookmark2]}
 
-    expect(state.bookmarks).not.toContainEqual(bookmark1)
+        const bookmark2Id = bookmark2._id
+        const action = changeBookmarkName(bookmark2Id, 'yahoo')
+        const state = reducer(initialState, action)
+
+        const alterdBookmark2 = {...bookmark2, name: 'yahoo'}
+
+        expect(state.bookmarks).toContainEqual(alterdBookmark2)
+    })
+
+    it('can change a bookmark url', () => {
+        const gen = bookmarkGenerator()
+        const bookmark1 = next(gen)
+        const bookmark2 = next(gen)
+        const initialState = {bookmarks: [bookmark1, bookmark2]}
+
+        const bookmark1Id = bookmark1._id
+        const action = changeBookmarkUrl(bookmark1Id, 'https://www.google.com')
+        const state = reducer(initialState, action)
+
+        const alteredBookmark1 = {...bookmark1, url: 'https://www.google.com'}
+
+        expect(state.bookmarks).toContainEqual(alteredBookmark1)
+    })
+
+    it('can remove a bookmark', () => {
+        const gen = bookmarkGenerator()
+        const bookmark1 = next(gen)
+        const bookmark2 = next(gen)
+        const bookmark3 = next(gen)
+        const initialState = {bookmarks: [bookmark1, bookmark2, bookmark3]}
+
+        const bookmark3Id = bookmark3._id
+        const action = removeBookmark(bookmark3Id)
+        const state = reducer(initialState, action)
+
+        expect(state.bookmarks).not.toContainEqual(bookmark3)
+    })
 })

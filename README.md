@@ -49,3 +49,7 @@ the root directory to the example folder you want to use
 `/calculator`: A calculator lab assignment solution.
 
 ![calculator screenshot](resources/calculator.png)
+
+`/bookmarks-with-testing`: A little bookmark app with app logic testing.
+
+![bookmarks](resources/bookmarks-with-testing.png)

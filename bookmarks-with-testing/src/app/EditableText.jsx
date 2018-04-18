@@ -17,6 +17,10 @@ export default class EditableText extends React.Component {
             if (e.key === 'Enter') {
                 this.handleEditDone(e.target.value)
             }
+
+            if (e.key === 'Escape') {
+                e.target.value = this.props.value
+            }
         }
 
         this.handleEditDone = value => {

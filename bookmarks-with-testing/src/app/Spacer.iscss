@@ -1,0 +1,17 @@
+@import "./src/app/common";
+
+.verticalSpacer {
+  height: $normalGap;
+}
+
+.smallVerticalSpacer {
+  height: $smallGap;
+}
+
+.horizontalSpacer {
+  width: $normalGap;
+}
+
+.smalllHorizontalSpacer {
+  width: $smallGap;
+}

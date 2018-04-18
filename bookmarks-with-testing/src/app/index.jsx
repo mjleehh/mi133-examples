@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reducer from './reducer'
-import './style.css'
+import './global.scss'
 import App from './App'
 import {requestSetBookmarks} from './actions'
 

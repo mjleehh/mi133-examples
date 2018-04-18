@@ -1,0 +1,28 @@
+@import "common";
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: lightsteelblue;
+    font-family: Helvetica;
+}
+
+.pageContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+

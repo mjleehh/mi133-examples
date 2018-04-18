@@ -1,0 +1,6 @@
+@import "./src/app/common";
+
+.bookarkListContainer {
+  width: 100%;
+}
+

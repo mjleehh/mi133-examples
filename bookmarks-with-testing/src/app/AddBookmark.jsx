@@ -1,7 +1,10 @@
 import {connect} from "react-redux"
 import React from "react"
 
-import {addBookmark, requestAddBookmark} from './actions'
+import {requestAddBookmark} from './actions'
+import Spacer from "./Spacer"
+
+import style from './AddBookmarks.iscss'
 
 @connect()
 export default class AddBookmark extends React.Component {
@@ -29,11 +32,23 @@ export default class AddBookmark extends React.Component {
     render() {
         const {name, url} = this.state
 
-        return <form onSubmit={this.handleSubmit}>
-            <div>add bookmark</div>
-            <div><label>name</label><input type="text" value={name} onChange={this.handleNameChange}/></div>
-            <div><label>url</label><input type="text" value={url} onChange={this.handleUrlChange}/></div>
-            <div><input type="submit" value="create"/></div>
-        </form>
+        return <div style={style.container}>
+            <form onSubmit={this.handleSubmit}>
+                <Spacer/>
+                <div className="column">
+                    <div className="row">
+                        <label style={style.label}>name</label>
+                        <input style={style.input} value={name} onChange={this.handleNameChange}/>
+                    </div>
+                    <Spacer small/>
+                    <div className="row">
+                        <label style={style.label}>url</label>
+                        <input style={style.input} type="text" value={url} onChange={this.handleUrlChange}/>
+                    </div>
+                </div>
+                <Spacer/>
+                <div><input style={style.createButton} type="submit" value="create"/></div>
+            </form>
+        </div>
     }
 }

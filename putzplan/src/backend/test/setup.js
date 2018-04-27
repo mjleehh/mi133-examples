@@ -33,7 +33,7 @@ export default async function setup() {
     await db.collection('tasks').insertMany([
         {
             _id: new ObjectId('5ade08e5eaf1423599d5ce9c'),
-            name: 'clean epstein drive',
+            description: 'clean epstein drive',
             firstResident: '5ade08d55af1423599d5ce9d',
             startDate: new Date('2017-01-26 09:11:17.111Z'),
             lastDone: new Date('2016-01-26 09:11:17.111Z'),

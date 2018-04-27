@@ -59,10 +59,25 @@ describe('resident', () => {
         expect(res.status).toBe(400)
     })
 
+    it('requires a name', async () => {
+        const res = await request(app).post('/api/resident')
+            .send({surname: 'Lopez'})
+
+        expect(res.status).toBe(400)
+    })
+
     it('requires a surname', async () => {
         const res = await request(app)
             .post('/api/resident')
             .send({name: 'Anderson'})
+
+        expect(res.status).toBe(400)
+    })
+
+    it('requires surname can not be empty', async () => {
+        const res = await request(app)
+            .post('/api/resident')
+            .send({name: 'Anderson', surname: ''})
 
         expect(res.status).toBe(400)
     })

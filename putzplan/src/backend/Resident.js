@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import validators from 'validator'
 import _ from "lodash"
 
 export const residentProjection  = '_id name surname createdAt'
@@ -35,10 +34,18 @@ residentSchema.statics.createChecked = async function(doc) {
     return retval
 }
 
-residentSchema.statics.sorted = async function () {
-    return await this
+residentSchema.statics.sorted = function () {
+    return this
         .find({}, residentProjection)
         .sort([['createdAt', 'asc'], ['surname', 'asc'], ['name', 'asc']])
+}
+
+residentSchema.statics.setName = function(_id, name) {
+    return this.findOneAndUpdate({_id}, {$set: {name}}, {new: true})
+}
+
+residentSchema.statics.setSurname = function(_id, surname) {
+    return this.findOneAndUpdate({_id}, {$set: {surname}}, {new: true})
 }
 
 export default mongoose.model('residents', residentSchema)

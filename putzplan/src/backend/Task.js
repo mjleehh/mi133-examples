@@ -1,10 +1,11 @@
 import mongoose from "mongoose"
 import Resident from './Resident'
+import _ from 'lodash'
 
 export const filterBookmarkProperties = ({_id, name, url}) => ({_id, name, url})
 
 const taskSchema = new mongoose.Schema({
-    name: {
+    description: {
         type: String,
         required: true,
         index: true,
@@ -31,11 +32,28 @@ taskSchema.statics.createChecked = async function(doc) {
         throw {message: 'invalid resident'}
     }
 
-    if (doc.lastDone && doc.lastDone.getTime() < doc.startDate.getTime()) {
+    const {lastDone, startDate} = retval
+    if (lastDone && lastDone.getTime() < startDate.getTime()) {
         throw {message: 'lastDone date can not be before start time'}
     }
 
     return retval
+}
+
+taskSchema.statics.setDescription = async function(_id, description) {
+    const task = await this.findOneAndUpdate({_id}, {$set: {description}}, {new: true})
+    if (!task) {
+        throw {message: `task ${_id} not found`}
+    }
+    return task
+}
+
+taskSchema.statics.setLastDone = async function(_id, lastDone) {
+    const task = await this.findOneAndUpdate({_id}, {$set: {lastDone}}, {new: true})
+    if (!task) {
+        throw {message: `task ${_id} not found`}
+    }
+    return task
 }
 
 export default mongoose.model('tasks', taskSchema)

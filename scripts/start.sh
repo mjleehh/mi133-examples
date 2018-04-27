@@ -1,11 +1,6 @@
 #!/usr/bin/env sh
 
-if [ ! -L node_modules/src ]
-then
-    ln -s ../src node_modules/src
-fi
-
-npx babel-watch src/backend/index.js &
+npx babel-node src/backend/index.js &
 backendPid=$!
 
 npx webpack-dev-server --mode development --open &

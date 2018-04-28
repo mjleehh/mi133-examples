@@ -1,4 +1,5 @@
 import Task from "./Task"
+import Resident from "./Resident"
 
 export default function addTaskApi(app) {
     /**
@@ -65,6 +66,19 @@ export default function addTaskApi(app) {
         } catch (e) {
             res.status(404).json({error: 'not found'})
         }
+        next()
+    })
+
+    app.delete(`/api/task/:taskId`, async (req, res, next) => {
+        const {taskId} = req.params
+
+        const task = await Task.remove({_id: taskId})
+        if (task === null) {
+            res.status(404).json({error: 'not found'})
+            next()
+            return
+        }
+        res.json(task)
         next()
     })
 }

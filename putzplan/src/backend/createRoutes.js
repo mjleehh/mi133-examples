@@ -11,7 +11,7 @@ export default function createRoutes() {
             const bookmarksList = list.map(filterBookmarkProperties)
             ctx.body = {bookmarks: bookmarksList}
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
             return
         }
@@ -24,7 +24,7 @@ export default function createRoutes() {
             await Bookmark.remove({})
             ctx.body = {}
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
         }
         next()
@@ -45,7 +45,7 @@ export default function createRoutes() {
             const savedBookmark = await bookmark.save()
             ctx.body = filterBookmarkProperties(savedBookmark)
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
             return
         }
@@ -65,7 +65,7 @@ export default function createRoutes() {
             }
             ctx.body = filterBookmarkProperties(savedBookmark)
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
             return
         }
@@ -85,7 +85,7 @@ export default function createRoutes() {
             }
             ctx.body = filterBookmarkProperties(savedBookmark)
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
             return
         }
@@ -105,7 +105,7 @@ export default function createRoutes() {
             }
             ctx.body = filterBookmarkProperties(savedBookmark)
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
             return
         }
@@ -119,7 +119,7 @@ export default function createRoutes() {
             await Bookmark.remove({_id: bookmarkId})
             ctx.body = {}
         } catch (e) {
-            console.log(e)
+            console.error(e)
             ctx.status = 500
             return
         }

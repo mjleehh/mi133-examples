@@ -1,0 +1,47 @@
+@import './src/app/util/common';
+
+.bookmarkContainer {
+  background: #ccebff;
+  width: 100%;
+}
+
+.innerContainer {
+  padding: $normalGap;
+}
+
+.innerButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: none;
+  border: none;
+}
+
+.deleteButton {
+  background: #f08080;
+  border: none;
+  width: $buttonHeight;
+  height: $buttonHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.goButton {
+  background: #99ccff;
+  width: $buttonHeight;
+  height: $buttonHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.urlLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.input {
+  flex-grow: 1;
+}

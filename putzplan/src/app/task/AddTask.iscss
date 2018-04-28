@@ -1,0 +1,21 @@
+@import './src/app/util/common';
+
+.container {
+  background: #ccebff;
+  padding: $normalGap;
+}
+
+.label {
+  width: 4em
+}
+
+.input {
+  border: none;
+  flex-grow: 1;
+}
+
+.createButton {
+  height: 2em;
+  border: none;
+  background: #99ccff;
+}

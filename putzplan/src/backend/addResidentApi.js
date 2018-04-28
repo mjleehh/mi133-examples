@@ -66,7 +66,6 @@ export default function addResidentApi(app) {
             next()
             return
         }
-        console.log(resident)
         res.json(resident)
         next()
     })

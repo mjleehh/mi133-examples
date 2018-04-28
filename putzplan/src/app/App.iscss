@@ -1,0 +1,15 @@
+@import './src/app/util/common';
+
+.container {
+  width: 20em;
+}
+
+.header {
+  padding: $normalGap;
+  background: #dae4f1;
+  font-size: 1.5em;
+}
+
+.tabItem {
+  flex-grow: 1;
+}

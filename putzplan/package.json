@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Putzplan app sample backend.",
   "scripts": {
-    "start": "BABEL_ENV=server npx babel-node ./src/backend/index.js",
+    "start": "./scripts/start.sh",
+    "start-app": "npx webpack-dev-server --mode development --open",
+    "start-backend": "BABEL_ENV=server npx babel-node ./src/backend/index.js",
     "test": "npx jest --coverage"
   },
   "author": "Michael Jonathan Lee",
@@ -12,14 +14,17 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
+    "moment": "^2.22.1",
     "mongoose": "^5.0.12",
     "react": "^16.2.0",
+    "react-datepicker": "^1.4.1",
     "react-dom": "^16.2.0",
+    "react-modal": "^3.4.4",
     "react-redux": "^5.0.7",
+    "react-select": "^1.2.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0",
-    "validator": "^9.4.1"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-jest": "^22.4.3",

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import app from './endpoints'
+import app from './api'
 
 async function main() {
     await mongoose.connect('mongodb://localhost/putzplan-test')

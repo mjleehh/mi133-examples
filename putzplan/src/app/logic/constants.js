@@ -1,0 +1,5 @@
+export const DIALOG_ADD_TASK = 'DIALOG_ADD_TASK'
+export const DIALOG_ADD_RESIDENT = 'DIALOG_ADD_RESIDENT'
+
+export const TAB_TASKS = 'TAB_TASKS'
+export const TAB_RESIDENTS = 'TAB_RESIDENTS'

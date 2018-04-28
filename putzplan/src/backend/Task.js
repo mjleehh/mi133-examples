@@ -1,6 +1,5 @@
 import mongoose from "mongoose"
 import Resident from './Resident'
-import _ from 'lodash'
 
 export const filterBookmarkProperties = ({_id, name, url}) => ({_id, name, url})
 

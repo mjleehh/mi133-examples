@@ -180,7 +180,7 @@ function calculateReducer(state) {
 function resetReducer(state) {
     return {
         ...state,
-        rhs: initialRhs(),
+        ...initialRhs(),
         acc: null,
     }
 }

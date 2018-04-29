@@ -4,5 +4,6 @@ node_js:
 
 env:
   - PROJECT_DIR=bookmarks-with-testing
+  - PROJECT_DIR=putzplan
 
 script: cd $PROJECT_DIR && npm install && npm test

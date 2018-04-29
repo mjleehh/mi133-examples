@@ -1,5 +1,5 @@
 import request from 'supertest'
-import app from '../endpoints'
+import app from '../api'
 import setup from './setup'
 import teardown from './teardown'
 
@@ -17,7 +17,7 @@ describe('residents', () => {
         const res = await request(app).get('/api/residents')
 
         expect(res.status).toBe(200)
-        expect(res.body).toEqual([
+        expect(res.body.residents).toEqual([
             expect.objectContaining({name: 'Jim'}),
             expect.objectContaining({name: 'Julie'}),
             expect.objectContaining({name: 'Chrisjen'})
@@ -32,7 +32,7 @@ describe('residents', () => {
 
         const res = await request(app).get('/api/residents')
         expect(res.status).toBe(200)
-        expect(res.body).toEqual([
+        expect(res.body.residents).toEqual([
             expect.objectContaining({name: 'Jim'}),
             expect.objectContaining({name: 'Julie'}),
             expect.objectContaining({name: 'Chrisjen'}),

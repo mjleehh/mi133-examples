@@ -37,7 +37,7 @@ export const changeResidentSurname = (_id, surname) => ({type: CHANGE_RESIDENT_S
 export const SET_TASKS = 'DATA/SET_TASKS'
 export const setTasks = tasks => ({type: SET_TASKS, payload: tasks})
 
-export const CHANGE_TASK_DESCRIPTION = 'DATA/CHANGE_RESIDENT_DESCRIPTION'
+export const CHANGE_TASK_DESCRIPTION = 'DATA/CHANGE_TASK_DESCRIPTION'
 export const changeTaskDescription = (_id, description) => ({type: CHANGE_TASK_DESCRIPTION, payload: {_id, description}})
 
 export const REMOVE_TASK = 'DATA/REMOVE_TASK'
@@ -133,7 +133,7 @@ export const requestChangeTaskDone = (_id, lastDone) => async dispatch => {
 export const requestRemoveTask = _id => async dispatch => {
     try {
         await axios.delete(`/api/task/${_id}`)
-        dispatch(requestSetTasks())
+        dispatch(removeTask(_id))
     } catch (e) {
         console.error(e)
     }

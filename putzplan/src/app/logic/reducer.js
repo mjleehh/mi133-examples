@@ -8,7 +8,7 @@ import {
     OPEN_RESIDENTS_TAB,
     CHANGE_RESIDENT_NAME,
     CHANGE_RESIDENT_SURNAME,
-    CHANGE_TASK_DESCRIPTION,
+    CHANGE_TASK_DESCRIPTION, REMOVE_TASK,
 } from './actions'
 import {DIALOG_ADD_RESIDENT, DIALOG_ADD_TASK, TAB_RESIDENTS, TAB_TASKS} from './constants'
 
@@ -78,6 +78,10 @@ function dataReducer(dataState, {type, payload}) {
                     ? {...task, description}
                     : task
             )
+            return {...dataState, tasks}
+        }
+        case REMOVE_TASK: {
+            const tasks = dataState.tasks.filter(task => task._id !== payload)
             return {...dataState, tasks}
         }
         default:

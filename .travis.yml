@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - stable
+services: mongodb
 
 env:
   - PROJECT_DIR=bookmarks-with-testing

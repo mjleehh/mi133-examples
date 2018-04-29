@@ -1,5 +1,7 @@
 # MI133 Examples
 
+[![Build Status](https://travis-ci.org/mjleehh/mi133-examples.svg?branch=master)](https://travis-ci.org/mjleehh/mi133-examples)
+
 This repo contains the code examples for the MI133 class held in sumer semseter
 2018 at FH Kiel.
 

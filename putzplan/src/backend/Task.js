@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 import Resident from './Resident'
-
-export const filterBookmarkProperties = ({_id, name, url}) => ({_id, name, url})
+import moment from 'moment'
 
 const taskSchema = new mongoose.Schema({
     description: {
@@ -53,6 +52,55 @@ taskSchema.statics.setLastDone = async function(_id, lastDone) {
         throw {message: `task ${_id} not found`}
     }
     return task
+}
+
+taskSchema.statics.removeResident = async function(residentId) {
+    const tasks = await this.find({firstResident: residentId})
+    if (tasks.length < 1) {
+        return
+    }
+
+    const nextResidentIds = await Resident.next(residentId)
+    if (nextResidentIds.length < 1) {
+        throw {message: 'can not delete last resident'}
+    }
+    const nextResidentId = nextResidentIds[1]
+    return this.updateMany({firstResident: residentId}, {$set: {firstResident: nextResidentId}})
+}
+
+taskSchema.methods.toObject = function() {
+    const {_id, description, firstResident, startDate, lastDone} = this
+    return {_id, description, firstResident, startDate, lastDone}
+}
+
+taskSchema.methods.doneForThisWeek = function() {
+    if (!this.lastDone) {
+        return false
+    }
+    const lastDoneWeekStart = moment(this.lastDone).startOf('isoweek')
+    const now = moment()
+    const weeksPassed = now.diff(lastDoneWeekStart, 'weeks')
+    if (weeksPassed < 0) {
+        throw {message: 'last done in the future'}
+    }
+    return weeksPassed < 1
+}
+
+taskSchema.methods.nextResidentsQueue = async function() {
+    const startDateWeekStart = moment(this.startDate).startOf('isoweek')
+    const now = moment()
+    const weeksPassed = now.diff(startDateWeekStart, 'weeks')
+    if (weeksPassed < 0) {
+        throw {message: 'start date in the future'}
+    }
+    return await Resident.next(this.firstResident, weeksPassed)
+}
+
+taskSchema.methods.status = async function() {
+    return {
+        done: this.doneForThisWeek(),
+        queue: await this.nextResidentsQueue(),
+    }
 }
 
 export default mongoose.model('tasks', taskSchema)

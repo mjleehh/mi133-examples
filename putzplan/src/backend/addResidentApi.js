@@ -1,4 +1,5 @@
 import Resident from "./Resident"
+import Task from './Task'
 
 export default function addResidentApi(app) {
     app.get('/api/residents', async (req, res, next) => {
@@ -26,6 +27,18 @@ export default function addResidentApi(app) {
         }
 
         res.json(savedResident)
+        next()
+    })
+
+    app.get('/api/resident/:residentId/next', async (req, res, next) => {
+        const {residentId} = req.params
+        try {
+            const residentIds = await Resident.next(residentId)
+            res.json({residentIds})
+        } catch (err) {
+            res.status(400).json({error: err.message})
+            return
+        }
         next()
     })
 
@@ -73,13 +86,14 @@ export default function addResidentApi(app) {
     app.delete(`/api/resident/:residentId`, async (req, res, next) => {
         const {residentId} = req.params
 
-        const resident = await Resident.remove({_id: residentId})
-        if (resident === null) {
+        try {
+            await Task.removeResident(residentId)
+            await Resident.remove({_id: residentId})
+            res.json({})
+        } catch (e) {
+            console.error(e)
             res.status(404).json({error: 'not found'})
-            next()
-            return
         }
-        res.json(resident)
         next()
     })
 }

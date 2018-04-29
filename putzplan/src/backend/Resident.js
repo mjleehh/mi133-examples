@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import _ from "lodash"
 
-export const residentProjection  = '_id name surname createdAt'
+const residentProjection  = '_id name surname createdAt'
 
 const residentSchema = new mongoose.Schema({
     name: {
@@ -34,10 +34,29 @@ residentSchema.statics.createChecked = async function(doc) {
     return retval
 }
 
-residentSchema.statics.sorted = function () {
+residentSchema.statics.sorted = function() {
     return this
         .find({}, residentProjection)
         .sort([['createdAt', 'asc'], ['surname', 'asc'], ['name', 'asc']])
+}
+
+residentSchema.statics.next = async function(residentId, offset = 0) {
+    const _id = residentId.toString()
+    const sortedResidentIds = (await this.sorted()).map(({_id}) => _id.toString())
+    const residentIndex = _.findIndex(sortedResidentIds, otherId => otherId === _id)
+    if (residentIndex < 0) {
+        throw {message: `invalid resident id ${_id}`}
+    }
+    const residentIndexWithOffset = (residentIndex + offset) % sortedResidentIds.length
+
+    const retval = []
+    for (let i = residentIndexWithOffset; i < sortedResidentIds.length; ++i) {
+        retval.push(sortedResidentIds[i])
+    }
+    for (let i = 0; i < residentIndexWithOffset; ++i) {
+        retval.push(sortedResidentIds[i])
+    }
+    return retval
 }
 
 residentSchema.statics.setName = function(_id, name) {

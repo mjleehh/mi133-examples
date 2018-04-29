@@ -3,7 +3,12 @@ import {
     OPEN_ADD_TASK_DIALOG,
     CLOSE_DIALOG,
     SET_RESIDENTS,
-    SET_TASKS, OPEN_TASKS_TAB, OPEN_RESIDENTS_TAB, CHANGE_RESIDENT_NAME, CHANGE_RESIDENT_SURNAME,
+    SET_TASKS,
+    OPEN_TASKS_TAB,
+    OPEN_RESIDENTS_TAB,
+    CHANGE_RESIDENT_NAME,
+    CHANGE_RESIDENT_SURNAME,
+    CHANGE_TASK_DESCRIPTION,
 } from './actions'
 import {DIALOG_ADD_RESIDENT, DIALOG_ADD_TASK, TAB_RESIDENTS, TAB_TASKS} from './constants'
 
@@ -50,22 +55,30 @@ function dataReducer(dataState, {type, payload}) {
         }
         case CHANGE_RESIDENT_NAME: {
             const {_id, name} = payload
-            const residents = dataState.residents.map((resident) => {
-                if (resident._id === _id) {
-                    return {...resident, name}
-                }
-                return resident
-            })
+            const residents = dataState.residents.map(resident =>
+                resident._id === _id
+                    ? {...resident, name}
+                    : resident
+            )
             return {...dataState, residents}
         }
         case CHANGE_RESIDENT_SURNAME: {
             const {_id, surname} = payload
-            const residents = dataState.residents.map((resident) => {
-                return resident._id === _id
+            const residents = dataState.residents.map(resident =>
+                resident._id === _id
                     ? {...resident, surname}
                     : resident
-            })
+            )
             return {...dataState, residents}
+        }
+        case CHANGE_TASK_DESCRIPTION: {
+            const {_id, description} = payload
+            const tasks = dataState.tasks.map(task =>
+                task._id === _id
+                    ? {...task, description}
+                    : task
+            )
+            return {...dataState, tasks}
         }
         default:
             return dataState

@@ -38,12 +38,15 @@ export default class Resident extends React.Component {
         const {name, surname} = this.props
         return <div style={style.bookmarkContainer}>
             <div style={style.innerContainer}>
-                <div className='row'>
-                    <EditableText value={name} onChange={this.handleNameChange}/>
-                </div>
+
                 <div style={style.urlLine}>
-                    <div style={style.input}>
-                        <EditableText value={surname} onChange={this.handleSurnameChange}/>
+                    <div className="column">
+                        <div className='row'>
+                            <EditableText value={name} onChange={this.handleNameChange}/>
+                        </div>
+                        <div style={style.input}>
+                            <EditableText value={surname} onChange={this.handleSurnameChange}/>
+                        </div>
                     </div>
                     <Spacer horizontal small/>
                     <div style={style.deleteButton} onClick={this.handleRemove}>

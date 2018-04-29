@@ -12,6 +12,9 @@ import {requestSetResidents, requestSetTasks} from 'app/logic/actions'
 
 import App from './App'
 
+import moment from 'moment'
+global.moment = moment
+
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(thunk)))

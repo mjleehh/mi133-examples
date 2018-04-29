@@ -4,12 +4,14 @@ import axios from 'axios'
 
 // ui
 
+// tabs
 export const OPEN_TASKS_TAB = 'UI/OPEN_TASKS_TAB'
 export const openTasksTab = () => ({type: OPEN_TASKS_TAB})
 
 export const OPEN_RESIDENTS_TAB = 'UI/OPEN_RESIDENTS_TAB'
 export const openResidentsTab = () => ({type: OPEN_RESIDENTS_TAB})
 
+// dialogs
 export const OPEN_ADD_TASK_DIALOG = 'UI/OPEN_ADD_TASK_DIALOG'
 export const openAddTaskDialog = () => ({type: OPEN_ADD_TASK_DIALOG})
 
@@ -35,6 +37,9 @@ export const changeResidentSurname = (_id, surname) => ({type: CHANGE_RESIDENT_S
 export const SET_TASKS = 'DATA/SET_TASKS'
 export const setTasks = tasks => ({type: SET_TASKS, payload: tasks})
 
+export const CHANGE_TASK_DESCRIPTION = 'DATA/CHANGE_RESIDENT_DESCRIPTION'
+export const changeTaskDescription = (_id, description) => ({type: CHANGE_TASK_DESCRIPTION, payload: {_id, description}})
+
 export const REMOVE_TASK = 'DATA/REMOVE_TASK'
 export const removeTask = _id => ({type: REMOVE_TASK, payload: _id})
 
@@ -44,7 +49,7 @@ export const removeTask = _id => ({type: REMOVE_TASK, payload: _id})
 // residents
 export const requestSetTasks = () => async dispatch => {
     try {
-        const {data: {tasks}} = await axios.get('/api/tasks')
+        const {data: {tasks}} = await axios.get('/api/tasks/status')
         dispatch(setTasks(tasks))
     } catch (e) {
         console.error(e)
@@ -91,6 +96,7 @@ export const requestRemoveResident = _id => async dispatch => {
     try {
         await axios.delete(`/api/resident/${_id}`)
         dispatch(requestSetResidents())
+        dispatch(requestSetTasks())
     } catch (e) {
         console.error(e)
     }
@@ -100,6 +106,24 @@ export const requestRemoveResident = _id => async dispatch => {
 export const requestAddTask = (description, firstResident, startDate) => async dispatch => {
     try {
         await axios.post('/api/task', {description, firstResident, startDate})
+        dispatch(requestSetTasks())
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const requestChangeTaskDescription = (_id, description) => async dispatch => {
+    try {
+        await axios.put(`/api/task/${_id}/description`, {description})
+        dispatch(changeTaskDescription(_id, description))
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const requestChangeTaskDone = (_id, lastDone) => async dispatch => {
+    try {
+        await axios.put(`/api/task/${_id}/lastDone`, {lastDone})
         dispatch(requestSetTasks())
     } catch (e) {
         console.error(e)

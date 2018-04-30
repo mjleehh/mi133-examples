@@ -3,37 +3,47 @@
 An example implementation of the *Putzplan* lab assignment. This example includes a backend implementation course
 participants can use to build their own solution.
 
-## Backend API Docs
+# Backend API Docs
 
-### Residents
+## Residents
 
-Residents in the shared housing.
+Residents are the people currently residing in the shared housing.
 
-Basic resident data type:
+Resident data types:
 
 ```typescript
 class Resident {
-    _id: ObjectId
     name: String
     surname: String
     createdAt: Date
 }
+
+class ResdientWithId extends Resident {
+    _id: ObjectId
+}
 ```
 
-#### List
+### List
 
 `GET /api/residents`
 
 List all residents in shared housing.
 
-**return type:**
+**result:**
 ```typescript
 class ResidentList {
-    residents: Array<Resident>
+    residents: Array<ResidentWithId>
 }
 ```
 
-**result example:**
+**example:**
+
+path:
+```
+GET /api/residents
+```
+
+result:
 ```json
 {
     "residents": [
@@ -53,7 +63,7 @@ class ResidentList {
 }
 ```
 
-#### List in Cyclic Order
+### List in Cyclic Order
 
 `GET /api/resident/:residentId/next`
 
@@ -63,14 +73,21 @@ Get the IDs of all residents in the shared housing in cyclic order, starting wit
 - residentId: ID of resident first in cyclic order
 
 
-**return type:**
+**result:**
 ```typescript
 class ResidentList {
     residentIds: Array<ObjectId>
 }
 ```
 
-**result example:**
+**example:**
+
+path:
+```
+GET /api/resident/5ade08d55af1423599d5ce9e/next
+```
+
+result:
 ```json
 {
     "residentIds": [
@@ -81,22 +98,28 @@ class ResidentList {
 }
 ```
 
-#### Retrieve
+### Retrieve
 
 `GET /api/resident/:residentId`
 
 Get one specific resident.
 
 **parameters:**
-- residentId: ID of resident to retrieve
+- residentId
 
-**return type:**
+**result:**
 ```
-Resident
+ResidentWithId
 ```
 
-**example result**
+**example:**
 
+path:
+```
+GET /api/resident/5ade08d55af1423599d5ce9e
+```
+
+result:
 ```json
 {
     "_id": "5ade08d55af1423599d5ce9e",
@@ -106,20 +129,155 @@ Resident
 }
 ```
 
-#### Delete
+### Create
+
+`POST /api/resident`
+
+Add a resident to shared housing.
+
+**body:**
+```
+Resident
+```
+
+**result:**
+```
+ResidentWithId
+```
+
+**example:**
+
+path:
+```POST /api/resident```
+
+body:
+```json
+{
+    "name": "Anderson",
+    "surname": "Dawes",
+    "createdAt": "2018-04-30T14:35:24.738Z"
+}
+```
+
+result:
+```json
+{
+    "_id": "5ae729ac27dd8203d383e848",
+    "name": "Anderson",
+    "surname": "Dawes",
+    "createdAt": "2018-04-30T14:35:24.738Z"
+}
+```
+
+### Change Name
+
+`PUT /api/resident/:residentId/name`
+
+Change the name of an existing resident.
+
+**parameters:**
+- residentId
+
+**body:**
+```typescript
+class ChangeResidentNameRequest {
+    name: String
+}
+```
+
+**result:**
+```
+ResidentWithId
+```
+
+**example:**
+
+path: 
+```
+PUT /api/resident/5ade08d55af1423599d5ce9e/name
+```
+body:
+```json
+{
+    "name": "Juliette"
+}
+```
+result:
+```json
+{
+    "_id": "5ade08d55af1423599d5ce9e",
+    "name": "Juliette",
+    "surname": "Mao",
+    "createdAt": "2014-04-22 12:15:24.157Z"
+}
+```
+
+### Change Surname
+
+`GET /api/resident/:residentId/surname`
+
+Change the surname of an existing resident.
+
+**parameters:**
+- residentId
+
+**body:**
+```typescript
+class ChangeResidentSurnameRequest {
+    surname: String
+}
+```
+
+**result:**
+```
+ResidentWithId
+```
+
+**example:**
+
+path:
+```
+PUT /api/resident/5ade08d55af1423599d5ce9e/surname
+```
+body:
+```json
+{
+    "surname": "Lenin"
+}
+```
+result:
+```json
+{
+    "_id": "5ade08d55af1423599d5ce9e",
+    "name": "Julie",
+    "surname": "Lenin",
+    "createdAt": "2014-04-22 12:15:24.157Z"
+}
+```
+
+### Delete
 
 `DELETE /api/resident/:residentId`
 
 Remove a specific resident. Removes all references to that resident in tasks too. If the resident is marked as first in 
 task, she will be replaced with the next resident in line.
 
-**return type:**
+**parameters:**
+- residentId
+
+**result:**
 ```
 Object
 ```
 
-**example result**
+**example:**
 
+path:
+```
+DELETE /api/resident/5ade08d55af1423599d5ce9e
+```
+
+result:
 ```json
 {}
 ```

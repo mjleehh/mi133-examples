@@ -1,7 +1,7 @@
 import Resident from "./Resident"
 import Task from './Task'
 
-export default function addResidentApi(app) {
+export default function registerResidentApi(app) {
     app.get('/api/residents', async (req, res, next) => {
         const residents = await Resident.sorted()
         res.json({residents})

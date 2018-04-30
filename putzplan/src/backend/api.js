@@ -1,13 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import addTaskApi from "./addTaskApi"
-import addResidentApi from "./addResidentApi"
+import registerTaskApi from "./registerTaskApi"
+import registerResidentApi from "./registerResidentApi"
 
 const app = express()
 app.use(bodyParser.json())
 
-addTaskApi(app)
-addResidentApi(app)
+registerTaskApi(app)
+registerResidentApi(app)
 
 export default app

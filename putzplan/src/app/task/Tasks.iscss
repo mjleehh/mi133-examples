@@ -1,0 +1,12 @@
+@import './src/app/util/common';
+
+.tasksContainer {
+  width: 100%;
+}
+
+.taskListContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

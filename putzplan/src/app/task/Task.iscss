@@ -1,8 +1,8 @@
 @import './src/app/util/common';
 
-.bookmarkContainer {
-  background: #ccebff;
-  width: 100%;
+.taskContainer {
+  background: #34f07f;
+  height: 100%;
 }
 
 .innerContainer {

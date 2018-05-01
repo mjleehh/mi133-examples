@@ -1,6 +1,0 @@
-@import './src/app/util/common';
-
-.taskListContainer {
-  width: 100%;
-}
-

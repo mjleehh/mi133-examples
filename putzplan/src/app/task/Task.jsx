@@ -39,7 +39,7 @@ export default class Task extends React.Component {
         const {description, status: {done, queue}, residents} = this.props
         const resident = _.find(residents, resident => resident._id === queue[0])
 
-        return <div style={style.bookmarkContainer}>
+        return <div style={style.taskContainer}>
             <div style={style.innerContainer}>
                 <div style={style.detailLine}>
                     <div style={style.info}>

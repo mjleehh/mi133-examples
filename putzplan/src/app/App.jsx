@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import AddResident from 'app/residents/AddResident'
 import AddTask from 'app/task/AddTask'
-import TaskList from 'app/task/TaskList'
+import Tasks from 'app/task/Tasks'
 import Spacer from 'app/util/Spacer'
 
 import style from './App.iscss'
@@ -25,7 +25,7 @@ export default class App extends React.Component {
     render() {
         const {tab, dialog} = this.props
         const tabContent = tab === TAB_TASKS ?
-            <TaskList/> :
+            <Tasks/> :
             <ResidentList/>
         let modalContent
         if (dialog === DIALOG_ADD_TASK) {

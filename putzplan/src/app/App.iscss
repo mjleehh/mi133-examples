@@ -1,7 +1,8 @@
 @import './src/app/util/common';
 
 .container {
-  width: 20em;
+  background: #ccebff;
+  width: 50em;
 }
 
 .header {

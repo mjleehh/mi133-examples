@@ -55,3 +55,7 @@ the root directory to the example folder you want to use
 `/bookmarks-with-testing`: A little bookmark app with app logic testing.
 
 ![bookmarks](resources/bookmarks-with-testing.png)
+
+`/putzplan`: Backend implementation for the 'Putzplan' lab assignment.
+
+[putzplan docs](/putzplan/README.md)

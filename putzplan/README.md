@@ -10,10 +10,12 @@ file with copies of the actual files in the repositorie's root directory.
 
 To run the backend with your own frontend, use `<repo-root>/putzplan/src/app/index.jsx` as your UI entry point and run
 ```
+$ cd <repo-root>/putzplan
+$ npm i
 $ npm start
 ```
 
-This will run the Webpack dev server and the backend.
+This will install the dependencies and then run the Webpack dev server and the backend.
 
 # Backend API Docs
 

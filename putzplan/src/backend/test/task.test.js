@@ -1,4 +1,5 @@
 import request from 'supertest'
+import _ from 'lodash'
 import app from '../api'
 import setup from './setup'
 import teardown from './teardown'
@@ -6,11 +7,40 @@ import teardown from './teardown'
 beforeAll(setup)
 afterAll(teardown)
 
+function expectTask(value) {
+    expect(value).toContainKeys([
+        '_id',
+        'description',
+        'firstResident',
+        'startDate',
+        'lastDone',
+    ])
+}
+
+function expectStatus(value) {
+    expect(value).toContainKeys([
+        'done',
+        'queue',
+    ])
+    expect(value.queue).toBeArray()
+}
+
 describe('tasks', () => {
     it('can be listed', async () => {
-        const res = await request(app).get('/api/tasks')
+        const {status, body: {tasks}} = await request(app).get('/api/tasks')
 
-        expect(res.status).toBe(200)
+        expect(status).toBe(200)
+        expect(tasks).toBeArray()
+        _.forEach(tasks, elem => expectTask(elem))
+    })
+
+    it('can be listed with additional status', async () => {
+        const {status, body: {tasks}} = await request(app).get('/api/tasks/status')
+
+        expect(status).toBe(200)
+        expect(tasks).toBeArray()
+        _.forEach(tasks, elem => expectTask(elem))
+        _.forEach(tasks, elem => expectStatus(elem.status))
     })
 })
 
@@ -41,11 +71,29 @@ describe('task', () => {
             })
         expect(batterySearch.status).toBe(200)
 
-        const res = await request(app).get(`/api/task/${batterySearch.body._id}`)
-        expect(res.body).toHaveProperty('_id', batterySearch.body._id)
-        expect(res.body).toMatchObject({description: 'find all batteries'})
+        const {status, body} = await request(app).get(`/api/task/${batterySearch.body._id}`)
+        expect(status).toBe(200)
+        expectTask(body)
+        expect(body).toHaveProperty('_id', batterySearch.body._id)
+        expect(body).toMatchObject({description: 'find all batteries'})
+    })
 
-        expect(res.status).toBe(200)
+    it('can be retrieved with additional status', async () => {
+        const startDate = (new Date()).toISOString()
+
+        const gasFreighterCamouflage = await request(app)
+            .post('/api/task')
+            .send({
+                description: 'add gas tanks',
+                firstResident: '5ade08d55af1423599d5ce9e',
+                startDate,
+            })
+        expect(gasFreighterCamouflage.status).toBe(200)
+
+        const {status, body} = await request(app).get(`/api/task/${gasFreighterCamouflage.body._id}/status`)
+        expect(status).toBe(200)
+        expectTask(body)
+        expectStatus(body.status)
     })
 
     it('requires a description', async () => {
@@ -59,6 +107,8 @@ describe('task', () => {
             })
         expect(res.status).toBe(400)
     })
+
+
 
     it('description can not be empty', async () => {
         const startDate = (new Date()).toISOString()
@@ -104,7 +154,6 @@ describe('task', () => {
         const startDate = new Date('2018-04-24T09:44:07.285Z')
         const lastDone = new Date('2018-03-24T09:44:07.285Z')
 
-
         const batterySearch = await request(app)
             .post('/api/task')
             .send({
@@ -131,18 +180,13 @@ describe('task', () => {
         const res = await
             request(app)
                 .put(`/api/task/${_id}/description`)
-                .send({
-                    description: 'updated description',
-                })
+                .send({description: 'updated description',})
         expect(res.status).toBe(200)
         expect(res.body.description).toBe('updated description')
     })
 
-
-    it('can change last done', async () => {
-        const lastDone = new Date('2018-04-24T09:44:07.285Z')
-        const startDate = new Date('2018-03-24T09:44:07.285Z')
-
+    it('updated description can not be empty ', async () => {
+        const startDate = (new Date()).toISOString()
         const {status, body: {_id}} = await
             request(app)
                 .post('/api/task')
@@ -155,11 +199,49 @@ describe('task', () => {
 
         const res = await
             request(app)
-                .put(`/api/task/${_id}/lastDone`)
+                .put(`/api/task/${_id}/description`)
+                .send({description: ''})
+        expect(res.status).toBe(404)
+    })
+
+    it('can change last done', async () => {
+        const {status, body: {_id}} = await
+            request(app)
+                .post('/api/task')
                 .send({
-                    lastDone,
+                    description: 'some description',
+                    firstResident: '5ade08d55af1423599d5ce9e',
+                    lastDone: '2018-04-24T09:44:07.285Z',
+                    startDate: '2018-03-24T09:44:07.285Z',
                 })
+        expect(status).toBe(200)
+
+        const lastDone = '2018-04-24T09:44:07.285Z'
+        const res = await
+            request(app)
+                .put(`/api/task/${_id}/lastDone`)
+                .send({lastDone})
         expect(res.status).toBe(200)
-        expect(res.body.lastDone).toBe('2018-04-24T09:44:07.285Z')
+        expect(res.body.lastDone).toBe(lastDone)
+    })
+
+    it('new last done has to be after start date', async () => {
+        const {status, body: {_id}} = await
+            request(app)
+                .post('/api/task')
+                .send({
+                    description: 'some description',
+                    firstResident: '5ade08d55af1423599d5ce9e',
+                    lastDone: '2018-04-24T09:44:07.285Z',
+                    startDate: '2018-03-24T09:44:07.285Z',
+                })
+        expect(status).toBe(200)
+
+        const lastDone = '2018-03-22T09:44:07.285Z'
+        const res = await
+            request(app)
+                .put(`/api/task/${_id}/lastDone`)
+                .send({lastDone})
+        expect(res.status).toBe(404)
     })
 })

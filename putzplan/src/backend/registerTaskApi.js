@@ -72,7 +72,7 @@ export default function addTaskApi(app) {
 
         try {
             const status = await task.status()
-            res.json(...task.toObject(), status)
+            res.json({...task.toObject(), status})
         } catch (err) {
             console.error(err.message)
             res.status(500).json('internal error')

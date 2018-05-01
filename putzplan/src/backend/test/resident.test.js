@@ -8,9 +8,10 @@ afterAll(teardown)
 
 describe('residents', () => {
     it('can be listed', async () => {
-        const res = await request(app).get('/api/residents')
+        const {status, body} = await request(app).get('/api/residents')
 
-        expect(res.status).toBe(200)
+        expect(status).toBe(200)
+        expect(body.residents).toHaveLength(3)
     })
 
     it('have fixed ordering', async () => {
@@ -30,9 +31,9 @@ describe('residents', () => {
             .send({name: 'Alex', surname: 'Kamal'})
         expect(kamal.status).toBe(200)
 
-        const res = await request(app).get('/api/residents')
-        expect(res.status).toBe(200)
-        expect(res.body.residents).toEqual([
+        const {status, body} = await request(app).get('/api/residents')
+        expect(status).toBe(200)
+        expect(body.residents).toEqual([
             expect.objectContaining({name: 'Jim'}),
             expect.objectContaining({name: 'Julie'}),
             expect.objectContaining({name: 'Chrisjen'}),

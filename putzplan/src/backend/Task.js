@@ -39,19 +39,25 @@ taskSchema.statics.createChecked = async function(doc) {
 }
 
 taskSchema.statics.setDescription = async function(_id, description) {
-    const task = await this.findOneAndUpdate({_id}, {$set: {description}}, {new: true})
+    const task = await this.findOne({_id})
     if (!task) {
         throw {message: `task ${_id} not found`}
     }
-    return task
+    task.description = description
+    return task.save()
 }
 
 taskSchema.statics.setLastDone = async function(_id, lastDone) {
-    const task = await this.findOneAndUpdate({_id}, {$set: {lastDone}}, {new: true})
+    const task = await this.findOne({_id})
     if (!task) {
         throw {message: `task ${_id} not found`}
     }
-    return task
+    lastDone = new Date(lastDone)
+    if (lastDone && lastDone.getTime() < task.startDate.getTime()) {
+        throw {message: 'lastDone date can not be before start time'}
+    }
+    task.lastDone = lastDone
+    return task.save()
 }
 
 taskSchema.statics.removeResident = async function(residentId) {

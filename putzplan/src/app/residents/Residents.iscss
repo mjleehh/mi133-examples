@@ -1,6 +1,6 @@
 @import './src/app/util/common';
 
-.residentListContainer {
+.Residents {
   width: 100%;
 }
 

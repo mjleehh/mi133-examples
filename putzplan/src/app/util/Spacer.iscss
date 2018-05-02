@@ -8,10 +8,18 @@
   height: $smallGap;
 }
 
+.largeVerticalSpacer {
+  height: $largeGap;
+}
+
 .horizontalSpacer {
   width: $normalGap;
 }
 
 .smalllHorizontalSpacer {
   width: $smallGap;
+}
+
+.largeHorizontalSpacer {
+  width: $largeGap;
 }

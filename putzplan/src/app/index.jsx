@@ -27,8 +27,6 @@ const appElement = document.getElementById('main')
 Modal.setAppElement(appElement)
 ReactDOM.render(
     <Provider store={store}>
-        <div className='pageContent'>
-            <App/>
-        </div>
+        <App/>
     </Provider>,
     appElement)

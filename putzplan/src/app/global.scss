@@ -11,14 +11,8 @@
 }
 
 body {
-    background: lightsteelblue;
+    background: $lightBrown;
     font-family: Helvetica;
-}
-
-.pageContent {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
 }
 
 

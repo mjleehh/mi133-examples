@@ -1,39 +1,12 @@
 @import './src/app/util/common';
 
 .taskContainer {
-  background: #34f07f;
+  background: $green;
   height: 100%;
 }
 
 .innerContainer {
   padding: $normalGap;
-}
-
-.innerButton {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background: none;
-  border: none;
-}
-
-.deleteButton {
-  background: #f08080;
-  border: none;
-  width: $buttonHeight;
-  height: $buttonHeight;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.goButton {
-  background: #99ccff;
-  width: $buttonHeight;
-  height: $buttonHeight;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .detailLine {
@@ -46,4 +19,16 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.removeButton {
+  background: $blue;
+}
+
+.doneButtonDone {
+  background: $okay;
+}
+
+.doneButtonNotDone {
+  background: $bad;
 }

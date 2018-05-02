@@ -6,12 +6,15 @@ import AddResident from 'app/residents/AddResident'
 import AddTask from 'app/task/AddTask'
 import Tasks from 'app/task/Tasks'
 import Spacer from 'app/util/Spacer'
+import SquareButton from 'app/util/SquareButton'
+import Residents from 'app/residents/Residents'
 
 import style from './App.iscss'
 
-import {closeDialog, openTasksTab, openResidentsTab} from 'app/logic/actions'
+import {closeDialog, openTasksTab, openResidentsTab, openAddTaskDialog, openAddResidentDialog} from 'app/logic/actions'
 import {DIALOG_ADD_RESIDENT, DIALOG_ADD_TASK, TAB_TASKS} from 'app/logic/constants'
-import ResidentList from './residents/ResidentList'
+
+import {TAB_RESIDENTS} from "app/logic/constants"
 
 @connect(({ui: {tab, dialog}}) => ({tab, dialog}))
 export default class App extends React.Component {
@@ -20,13 +23,21 @@ export default class App extends React.Component {
         this.handleOpenTasks = () => this.props.dispatch(openTasksTab())
         this.handleOpenResidents = () => this.props.dispatch(openResidentsTab())
         this.handleCloseDialog = () => this.props.dispatch(closeDialog())
+        this.handleAdd = () => {
+            const {tab, dispatch} = this.props
+            if (tab === TAB_TASKS) {
+                this.props.dispatch(openAddTaskDialog())
+            } else if (tab === TAB_RESIDENTS) {
+                this.props.dispatch(openAddResidentDialog())
+            }
+        }
     }
 
     render() {
         const {tab, dialog} = this.props
         const tabContent = tab === TAB_TASKS ?
             <Tasks/> :
-            <ResidentList/>
+            <Residents/>
         let modalContent
         if (dialog === DIALOG_ADD_TASK) {
             modalContent = <AddTask onAdd={this.handleCloseDialog} onCancel={this.handleCloseDialog}/>
@@ -36,14 +47,27 @@ export default class App extends React.Component {
             modalContent = <div> </div>
         }
 
+        const taskTabStyle = tab === TAB_TASKS ? style.activeTab : style.inactiveTab
+        const residentsTabSyle = tab === TAB_RESIDENTS ? style.activeTab : style.inactiveTab
+
         return <div style={style.container}>
             <div style={style.header}>Putzplan</div>
-            <Spacer/>
-            <div className='row'>
-                <div style={style.tabItem} onClick={this.handleOpenTasks}>Tasks</div>
-                <div style={style.tabItem} onClick={this.handleOpenResidents}>Residents</div>
+            <Spacer large/>
+            <div style={style.contentWrapper}>
+                <div style={style.content}>
+                    <div className="row">
+                        <div style={taskTabStyle} onClick={this.handleOpenTasks}>Tasks</div>
+                        <div style={residentsTabSyle} onClick={this.handleOpenResidents}>Residents</div>
+                    </div>
+                    <div style={style.mainArea}>
+                        {tabContent}
+                        <div style={style.buttons}>
+                            <SquareButton style={style.addButton} value='+' onClick={this.handleAdd}/>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            {tabContent}
             <Modal isOpen={!!dialog}>
                 {modalContent}
             </Modal>

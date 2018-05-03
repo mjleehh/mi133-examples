@@ -4,3 +4,9 @@
   width: 100%;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  padding: $normalGap;
+  background: $green;
+}

@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import Resident from './Resident'
 import moment from 'moment'
+import Week from '../common/Week'
 
 const taskSchema = new mongoose.Schema({
     description: {
@@ -93,13 +94,20 @@ taskSchema.methods.doneForThisWeek = function() {
 }
 
 taskSchema.methods.nextResidentsQueue = async function() {
-    const startDateWeekStart = moment(this.startDate).startOf('isoweek')
     const now = moment()
-    const weeksPassed = now.diff(startDateWeekStart, 'weeks')
+    const startWeek = new Week(this.startDate)
+    const weeksPassed = startWeek.weeksPassed(now)
     if (weeksPassed < 0) {
         throw {message: 'start date in the future'}
     }
-    return await Resident.next(this.firstResident, weeksPassed)
+    const nextResidents = await Resident.next(this.firstResident, weeksPassed)
+    const numResidents = nextResidents.length
+    const weeks = (new Week()).previousWeeks(numResidents)
+    const res = []
+    for (let i = 0; i < numResidents; ++i) {
+        res.push({residentId: nextResidents[i], ...weeks[i].toJSON()})
+    }
+    return res
 }
 
 taskSchema.methods.status = async function() {

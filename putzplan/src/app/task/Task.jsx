@@ -38,7 +38,7 @@ export default class Task extends React.Component {
 
     render() {
         const {description, status: {done, queue}, residents} = this.props
-        const resident = _.find(residents, resident => resident._id === queue[0])
+        const resident = _.find(residents, resident => resident._id === queue[0].residentId)
 
         const doneValue = done ? "☑" : "☐"
         const doneStyle = done ? style.doneButtonDone : style.doneButtonNotDone
@@ -52,7 +52,7 @@ export default class Task extends React.Component {
                     </div>
                     <SquareButton style={doneStyle} value={doneValue} onClick={this.handleDone}/>
                     <Spacer horizontal small/>
-                    <SquareButton style={style.removeButton} value="x" onClick={this.handleRemove}/>
+                    <SquareButton value="x" onClick={this.handleRemove}/>
                 </div>
             </div>
         </div>

@@ -21,10 +21,6 @@
   flex-grow: 1;
 }
 
-.removeButton {
-  background: $blue;
-}
-
 .doneButtonDone {
   background: $okay;
 }

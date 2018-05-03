@@ -4,9 +4,18 @@
   width: 100%;
 }
 
-.taskListContainer {
-  width: 100%;
+.currentWeek {
+  padding: $normalGap;
+
+}
+
+.buttons {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  padding: $normalGap;
+  background: $green;
+}
+
+.gap {
+  flex-grow: 100;
 }

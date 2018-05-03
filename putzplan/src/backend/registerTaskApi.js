@@ -1,6 +1,6 @@
-import Task, {filterBookmarkProperties} from "./Task"
+import Task from './Task'
 
-export default function addTaskApi(app) {
+export default function registerTaskApi(app) {
     app.get('/api/tasks', async (req, res, next) => {
         try {
             const tasks = await Task.find({})

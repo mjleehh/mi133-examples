@@ -23,14 +23,6 @@ export default class App extends React.Component {
         this.handleOpenTasks = () => this.props.dispatch(openTasksTab())
         this.handleOpenResidents = () => this.props.dispatch(openResidentsTab())
         this.handleCloseDialog = () => this.props.dispatch(closeDialog())
-        this.handleAdd = () => {
-            const {tab, dispatch} = this.props
-            if (tab === TAB_TASKS) {
-                this.props.dispatch(openAddTaskDialog())
-            } else if (tab === TAB_RESIDENTS) {
-                this.props.dispatch(openAddResidentDialog())
-            }
-        }
     }
 
     render() {
@@ -61,9 +53,6 @@ export default class App extends React.Component {
                     </div>
                     <div style={style.mainArea}>
                         {tabContent}
-                        <div style={style.buttons}>
-                            <SquareButton style={style.addButton} value='+' onClick={this.handleAdd}/>
-                        </div>
                     </div>
 
                 </div>

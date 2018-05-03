@@ -1,33 +1,23 @@
 @import './src/app/util/common';
 
-.bookmarkContainer {
-  background: #ccebff;
-  width: 100%;
-}
-
-.innerContainer {
+.residentContainer {
+  background: $green;
   padding: $normalGap;
 }
 
-.innerButton {
+.innerContainer {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  background: none;
-  border: none;
 }
 
-.deleteButton {
-  background: #f08080;
-  border: none;
-  width: $buttonHeight;
-  height: $buttonHeight;
+.nameRow {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.goButton {
+.tasksButton {
   background: #99ccff;
   width: $buttonHeight;
   height: $buttonHeight;
@@ -36,12 +26,7 @@
   justify-content: center;
 }
 
-.urlLine {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.gap {
+  flex-grow: 100;
 }
 
-.input {
-  flex-grow: 1;
-}

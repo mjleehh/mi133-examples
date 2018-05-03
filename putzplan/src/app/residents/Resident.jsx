@@ -8,6 +8,7 @@ import {
 } from 'app/logic/actions'
 import EditableText from 'app/util/EditableText'
 import Spacer from 'app/util/Spacer'
+import SquareButton from 'app/util/SquareButton'
 import style from './Resident.iscss'
 
 @connect()
@@ -36,23 +37,17 @@ export default class Resident extends React.Component {
     render() {
 
         const {name, surname} = this.props
-        return <div style={style.bookmarkContainer}>
+        return <div style={style.residentContainer}>
             <div style={style.innerContainer}>
-
-                <div style={style.urlLine}>
-                    <div className="column">
-                        <div className='row'>
-                            <EditableText value={name} onChange={this.handleNameChange}/>
-                        </div>
-                        <div style={style.input}>
-                            <EditableText value={surname} onChange={this.handleSurnameChange}/>
-                        </div>
-                    </div>
-                    <Spacer horizontal small/>
-                    <div style={style.deleteButton} onClick={this.handleRemove}>
-                        <div style={style.innerButton}>x</div>
+                <div style={style.nameRow}>
+                    <div className="row">
+                        <EditableText value={name} onChange={this.handleNameChange}/>
+                        <Spacer horizontal/>
+                        <EditableText value={surname} onChange={this.handleSurnameChange}/>
                     </div>
                 </div>
+                <div style={style.gap}> </div>
+                <SquareButton value="x" onClick={this.handleRemove}/>
             </div>
         </div>
     }

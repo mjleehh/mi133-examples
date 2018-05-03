@@ -44,10 +44,3 @@
   background: $darkGray;
 }
 
-.buttons {
-  padding: $normalGap;
-}
-
-.addButton {
-  background: $blue;
-}

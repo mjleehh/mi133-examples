@@ -58,4 +58,6 @@ the root directory to the example folder you want to use
 
 `/putzplan`: Backend implementation for the 'Putzplan' lab assignment.
 
+![putzplan](resources/putzplan.png)
+
 [putzplan docs](/putzplan/README.md)

@@ -8,8 +8,9 @@ export default async function setup() {
     await mongoose.connect(`mongodb://localhost/${TEST_DB_NAME}`)
     const {db} = mongoose.connection
 
-    await db.dropDatabase(TEST_DB_NAME)
-    await db.collection('residents').insertMany([
+    const residents = db.collection('residents')
+    await residents.remove({})
+    await residents.insertMany([
         {
             _id: new ObjectId('5ade08d55af1423599d5ce9c'),
             name: 'Chrisjen',
@@ -30,7 +31,9 @@ export default async function setup() {
         },
     ])
 
-    await db.collection('tasks').insertMany([
+    const tasks = db.collection('tasks')
+    await tasks.remove({})
+    await tasks.insertMany([
         {
             _id: new ObjectId('5ade08e5eaf1423599d5ce9c'),
             description: 'clean epstein drive',

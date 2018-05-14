@@ -61,3 +61,8 @@ the root directory to the example folder you want to use
 ![putzplan](resources/putzplan.png)
 
 [putzplan docs](/putzplan/README.md)
+
+`/infinite-counter`: Very simple click count application to demonstrate the use
+of the elm programming language as a real functional alternative to react/redux.
+
+![infinite counter screenshot](/resources/infinite-counter.png)

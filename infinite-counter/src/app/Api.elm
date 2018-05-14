@@ -3,7 +3,7 @@ module Api exposing (getCount, incrementCount, resetCount)
 import Json.Decode as Decode
 import Http
 
-apiPrefix path = "http://localhost:3000/api" ++ path
+apiPrefix path = "/api" ++ path
 
 -- convert the JSON response to Int count
 decodeCount : Decode.Decoder Int

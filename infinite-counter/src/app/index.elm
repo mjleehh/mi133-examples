@@ -1,7 +1,7 @@
 import Html
 
 import Reducer exposing (initialState, reducer)
-import App
+import App exposing (app)
 import Actions exposing (Action)
 import State exposing (State)
 
@@ -10,7 +10,7 @@ subscriptions model = Sub.none
 
 main = Html.program {
         init = initialState,
-        view = App.view,
+        view = app,
         update = reducer,
         subscriptions = subscriptions
     }

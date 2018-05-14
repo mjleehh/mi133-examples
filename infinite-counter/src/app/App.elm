@@ -1,16 +1,17 @@
-module App exposing (view)
+module App exposing (app)
 
 import Html exposing (button, div, text)
 import Html.Events exposing (onClick)
 import Actions
 import Spacer exposing (spacer)
 
+import Display exposing (display)
+import Buttons exposing (buttons, onIncrement, onReset)
 
-view state = div[][
+app state = div[][
         div [][text "Infinite Counter"],
         spacer [Spacer.Vertical, Spacer.Large],
-        text (toString state.count),
+        display state,
         spacer [Spacer.Vertical, Spacer.Large],
-        button [onClick Actions.REQ_INCREMENT_COUNT][text "increment"],
-        button [onClick Actions.REQ_RESET_COUNT][text "reset"]
+        buttons [onIncrement Actions.REQ_INCREMENT_COUNT, onReset Actions.REQ_RESET_COUNT]
     ]

@@ -1,0 +1,19 @@
+{
+  "name": "infinite-counter",
+  "version": "1.0.0",
+  "description": "Counter app demonstrating functional programming in elm.",
+  "scripts": {
+    "app": "npx elm-live ./src/app/index.elm --open -- --debug",
+    "backend": "npx babel-node ./src/backend/index.js"
+  },
+  "author": "Michael Jonathan Lee",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2"
+  },
+  "devDependencies": {
+    "elm": "^0.18.0",
+    "elm-live": "^2.7.5"
+  }
+}

@@ -1,0 +1,24 @@
+@import './src/app/common';
+
+.wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  width: 100%;
+  background: $green;
+  padding: $normalGap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  padding: $normalGap;
+  background: $darkGreen;
+}

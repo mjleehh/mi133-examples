@@ -1,0 +1,21 @@
+@import 'common';
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: $lightBrown;
+    font-family: Helvetica;
+}
+
+
+
+
+

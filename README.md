@@ -66,3 +66,8 @@ the root directory to the example folder you want to use
 of the elm programming language as a real functional alternative to react/redux.
 
 ![infinite counter screenshot](/resources/infinite-counter.png)
+
+`/infinite-counter-with-react`: Same as the *inifinite counter* implemented in
+elm and Koa but implemented using React/Redux and express.
+
+![infinite counter with React screenshot](/resources/infinite-counter-with-react.png)

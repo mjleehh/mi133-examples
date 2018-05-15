@@ -12,12 +12,12 @@ import Buttons exposing (buttons, onIncrement, onReset)
 
 import AppStyle exposing (wrapperStyle, containerStyle, titleStyle)
 
-app state = div[style wrapperStyle][
-        div [style titleStyle][text "Infinite Counter"],
-        div [style containerStyle] [
-            spacer [Spacer.Vertical, Spacer.Large],
-            display state,
-            spacer [Spacer.Vertical, Spacer.Large],
-            buttons [onIncrement Actions.REQ_INCREMENT_COUNT, onReset Actions.REQ_RESET_COUNT]
-        ]
+app state = div [style wrapperStyle] [
+    div [style titleStyle] [text "Infinite Counter"],
+    div [style containerStyle] [
+      spacer [Spacer.Vertical, Spacer.Large],
+      display state,
+      spacer [Spacer.Vertical, Spacer.Large],
+      buttons [onIncrement Actions.REQ_INCREMENT_COUNT, onReset Actions.REQ_RESET_COUNT]
     ]
+  ]

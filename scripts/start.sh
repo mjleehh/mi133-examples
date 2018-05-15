@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-npx babel-node src/backend/index.js &
+BABEL_ENV=backend npx babel-node src/backend/index.js &
 backendPid=$!
 
 npx webpack-dev-server --mode development --open &

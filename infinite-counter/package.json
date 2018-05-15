@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Counter app demonstrating functional programming in elm.",
   "scripts": {
+    "install": "npx elm-package install",
     "start": "./scripts/start.sh",
     "app": "npx webpack-dev-server --mode development --open",
     "backend": "npx babel-node ./src/backend/index.js"

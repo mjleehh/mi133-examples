@@ -1,8 +1,8 @@
 {
     "version": "1.0.0",
     "summary": "",
-    "repository": "https://github.com/mjleehh/mi133-examples.git",
     "license": "",
+    "repository": "https://github.com/mjleehh/mi133-examples.git",
     "source-directories": [
         "src/app"
     ],

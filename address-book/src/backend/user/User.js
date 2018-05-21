@@ -4,7 +4,7 @@ import mongooseHidden from 'mongoose-hidden'
 import _ from 'lodash'
 import bcrypt from 'bcrypt'
 
-const userProjection  = '_id name surname createdAt'
+export const userCollectionName = 'users'
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.plugin(mongooseHidden())
+userSchema.plugin(mongooseHidden(), {hidden: {_id: false}})
 userSchema.index({email: 1}, {unique: true})
 
 userSchema.statics.createChecked = async function(email, nickname, password) {
@@ -62,7 +62,12 @@ userSchema.statics.findAuthenticated = async function(email, password) {
     if (!await bcrypt.compare(password, user.password)) {
         throw {message: 'invalid password'}
     }
+
     return user
 }
 
-export default mongoose.model('users', userSchema)
+userSchema.statics.list = async function() {
+    return await this.find({})
+}
+
+export default mongoose.model(userCollectionName, userSchema)

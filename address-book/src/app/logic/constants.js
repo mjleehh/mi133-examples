@@ -1,0 +1,1 @@
+export const DIALOG_ADD_CONTACT = 'DIALOG_ADD_CONTACT'

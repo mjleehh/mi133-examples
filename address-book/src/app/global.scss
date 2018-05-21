@@ -1,0 +1,28 @@
+@import 'util/common';
+
+#main {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: $lightBrown;
+    font-family: Helvetica;
+}
+
+
+
+
+

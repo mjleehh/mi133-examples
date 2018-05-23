@@ -16,6 +16,21 @@ function user(req) {
 }
 
 function registerApi(router) {
+    router.post('/signup',  async (req, res, next) => {
+        const {email, nickname, password} = req.body
+        let user
+        try {
+            user = await User.createChecked(email, nickname, password)
+        } catch (err) {
+            res.status(400).json({error: err.message}).end()
+            return
+        }
+
+        const savedUser = await user.save()
+        res.json(savedUser)
+        next()
+    })
+
     router.get('/loggedin', (req, res) => {
         if (req.isAuthenticated()) {
             res.json({loggedIn: true})
@@ -33,41 +48,45 @@ function registerApi(router) {
         res.json({})
     })
 
-    router.get('/users', ensureAuthenticated, async (req, res) => {
+    router.get('/users', ensureAuthenticated, async (req, res, next) => {
         try {
             const users = await User.list()
             res.json({users})
         } catch (err) {
             res.status(500).json({error: 'internal server error'}).end()
-        }
-    })
-
-    router.post('/signup',  async (req, res, next) => {
-        const {email, nickname, password} = req.body
-        let user
-        try {
-            user = await User.createChecked(email, nickname, password)
-        } catch (err) {
-            res.status(400).json({error: err.message}).end()
             return
         }
-
-        const savedUser = await user.save()
-        res.json(savedUser)
         next()
     })
 
-    router.get('/user', ensureAuthenticated, (req, res) => {
+    router.get('/user/:userId', ensureAuthenticated, async (req, res, next) => {
+        try {
+            const {userId} = req.params
+            const user = await User.findOne({_id: userId})
+            res.json(user)
+        } catch (err) {
+            res.status(500).json({error: 'internal server error'}).end()
+            return
+        }
+        next()
+    })
+
+    router.get('/me', ensureAuthenticated, (req, res) => {
         res.json(req.user)
     })
 
-    router.get('/user/contacts', ensureAuthenticated, async (req, res, next) => {
-        const contacts = await Contact.list(user(req))
-        res.json({contacts})
+    router.get('/me/contacts', ensureAuthenticated, async (req, res, next) => {
+        try {
+            const contacts = await Contact.list(user(req))
+            res.json({contacts})
+        } catch (err) {
+            res.status(500).json({error: 'internal server error'}).end()
+            return
+        }
         next()
     })
 
-    router.post('/user/contact', ensureAuthenticated, async (req, res, next) => {
+    router.post('/me/contact', ensureAuthenticated, async (req, res, next) => {
         let doc
         try {
             const {contact} = req.body
@@ -89,7 +108,7 @@ function registerApi(router) {
         next()
     })
 
-    router.get('/user/contact/:contactId', ensureAuthenticated, async (req, res, next) => {
+    router.get('/me/contact/:contactId', ensureAuthenticated, async (req, res, next) => {
         try {
             const {contactId} = req.params
             res.json(await Contact.get(user(req), contactId))
@@ -100,7 +119,7 @@ function registerApi(router) {
         next()
     })
 
-    router.delete('/user/contact/:contactId', ensureAuthenticated, async (req, res, next) => {
+    router.delete('/me/contact/:contactId', ensureAuthenticated, async (req, res, next) => {
         try {
             const {contactId} = req.params
             await Contact.remove(user(req), contactId)

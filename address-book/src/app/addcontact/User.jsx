@@ -1,9 +1,18 @@
 import React from 'react'
-import User from "app/addcontact/User"
 
-export default class Users extends React.Component {
+export default class User extends React.Component {
+    constructor() {
+        super()
+
+        this.handleClick = () => {
+            const handler = this.props.onSelect
+            if (handler) {
+                handler(this.props._id)
+            }
+        }
+    }
+
     render() {
-        const contacts = this.props.contacts.map(contact => <User key={contact._id} {...contact}/>)
-        return <div>{contacts}</div>
+        return <div onClick={this.handleClick}>{this.props.email}</div>
     }
 }

@@ -3,7 +3,7 @@ import {
     CLOSE_DIALOG,
     SET_CONTACTS,
     SET_USER_INFO,
-    RESET_APP, SET_CACHED_USERS,
+    RESET_APP, SET_CACHED_USERS, REMOVE_CONTACT, ADD_CONTACT,
 } from './actions'
 import {DIALOG_ADD_CONTACT} from './constants'
 
@@ -44,6 +44,14 @@ function dataReducer(dataState, {type, payload}) {
         }
         case SET_CONTACTS: {
             return {...dataState, contacts: payload}
+        }
+        case ADD_CONTACT: {
+            const contacts = [...dataState.contacts, payload]
+            return {...dataState, contacts}
+        }
+        case REMOVE_CONTACT: {
+            const contacts = dataState.contacts.filter(contact => contact._id !== payload)
+            return {...dataState, contacts}
         }
         default:
             return dataState

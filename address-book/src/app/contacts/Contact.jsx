@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import {requestRemoveContact} from 'app/logic/actions'
 
+@connect()
 export default class Contact extends React.Component {
     constructor() {
         super()

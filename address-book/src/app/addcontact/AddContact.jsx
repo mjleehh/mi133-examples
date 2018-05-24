@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import {closeDialog, requestAddContact} from 'app/logic/actions'
 
-@connect(({ui: {addContact}, data: {userInfo: {_id}}}) => ({...addContact, userId: _id}))
+@connect(({ui: {addContact}, data: {userInfo: {_id}, contacts}}) => ({...addContact, userId: _id, contacts}))
 export default class AddContact extends React.Component {
     constructor() {
         super()
@@ -12,15 +12,21 @@ export default class AddContact extends React.Component {
         this.handleCancel = () => this.props.dispatch(closeDialog())
         this.handleSelect = contactId => {
             const {userId, dispatch} = this.props
-            console.log(contactId, userId)
             dispatch(requestAddContact(userId, contactId))
             dispatch(closeDialog())
         }
     }
 
     render() {
-        const users = this.props.cachedUsers.map(user =>
-            <User {...user} onSelect={this.handleSelect}/>)
+        const {cachedUsers, userId, contacts} = this.props
+        const filteredUsers = cachedUsers.filter(user => {
+            const otherId = user._id
+            const isSelf = otherId === userId
+            const isContact = contacts.some(contact => contact._id === otherId)
+            return !(isSelf || isContact)
+        })
+        const users = filteredUsers.map(user =>
+            <User key={user._id} {...user} onSelect={this.handleSelect}/>)
 
         return <div>
             <div>{users}</div>

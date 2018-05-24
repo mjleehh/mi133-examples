@@ -66,7 +66,7 @@ export const requestData = () => async dispatch => {
 
 export const requestLogin = (email, password) => async dispatch => {
     try {
-        const loginRes = await axios.put('/api/login', {email, password})
+        const loginRes = await axios.put('/api/auth/login', {email, password})
         dispatch(setUserInfo(loginRes.data))
         const contactsRes = await axios.get('/api/me/contacts')
         dispatch(setContacts(contactsRes.data.contacts))
@@ -77,7 +77,7 @@ export const requestLogin = (email, password) => async dispatch => {
 
 export const requestLogout = () => async dispatch => {
     try {
-        await axios.put('/api/logout', {})
+        await axios.put('/api/auth/logout', {})
         dispatch(resetApp())
     } catch (e) {
         console.error(e)

@@ -1,8 +1,8 @@
 import React from 'react'
-import User from './User'
 import {connect} from 'react-redux'
 
 import {closeDialog, requestAddContact} from 'app/logic/actions'
+import User from './User'
 
 @connect(({ui: {addContact}, data: {userInfo: {_id}, contacts}}) => ({...addContact, userId: _id, contacts}))
 export default class AddContact extends React.Component {

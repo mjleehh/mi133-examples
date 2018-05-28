@@ -6,10 +6,8 @@ export default class AuthStrategy extends Strategy {
         const {email, password} = req.body
         try {
             const user = await User.findAuthenticated(email, password)
-            console.log('login')
             this.success(user)
         } catch (err) {
-            console.log('fail', err)
             this.fail()
         }
     }

@@ -8,14 +8,19 @@
   align-items: center;
 }
 
-.content {
+@mixin part {
   padding: $normalGap;
-  background: $darkBrown;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.label {
-  width: 6em;
+.title {
+  @include part;
+  background: $gray;
+}
+
+.body {
+  @include part;
+  background: $silver;
 }

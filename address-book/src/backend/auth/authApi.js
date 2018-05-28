@@ -9,7 +9,6 @@ export default function authApi() {
 
     router.post('/auth/signup',  async (req, res, next) => {
         const {email, nickname, password} = req.body
-        console.log(email, nickname, password)
         let user
         try {
             user = await User.createChecked(email, nickname, password)

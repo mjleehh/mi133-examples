@@ -44,13 +44,11 @@ contactSchema.statics.list = async function(user) {
 
 contactSchema.statics.get = async function(user, contact) {
     const res  = await this.findOne({user, contact}).populate('contact').exec()
-    console.log(res)
     return res.contact
 }
 
 contactSchema.statics.remove = async function(user, contact) {
     const res  = await this.findOneAndRemove({user, contact})
-    console.log(res)
 }
 
 export default mongoose.model(contactsCollectionName, contactSchema)

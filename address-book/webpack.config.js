@@ -30,11 +30,11 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader']
             },
             {
-                test: /\.scss$/,
+                test: /\.gscss$/,
                 use: [ 'style-loader', 'css-loader', 'sass-loader']
             },
             {
-                test: /\.iscss/,
+                test: /\.scss/,
                 use: [ 'inline-css-webpack-loader']
             }
         ],

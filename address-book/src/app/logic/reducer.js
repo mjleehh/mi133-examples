@@ -3,13 +3,18 @@ import {
     CLOSE_DIALOG,
     SET_CONTACTS,
     SET_USER_INFO,
-    RESET_APP, SET_CACHED_USERS, REMOVE_CONTACT, ADD_CONTACT,
+    RESET_APP, SET_CACHED_USERS,
+    REMOVE_CONTACT,
+    ADD_CONTACT,
+    OPEN_LOGIN_PAGE,
+    OPEN_SIGNUP_PAGE
 } from './actions'
-import {DIALOG_ADD_CONTACT} from './constants'
+import {DIALOG_ADD_CONTACT, LOGIN_LOGIN, LOGIN_SIGNUP} from './constants'
 
 const initialState = () => ({
     ui: {
         dialog: null,
+        loginPage: LOGIN_LOGIN,
         addContact: {
             cachedUsers: [],
         }
@@ -31,6 +36,12 @@ function uiReducer(uiState, {type, payload}) {
         case SET_CACHED_USERS: {
             const {addContact} = uiState
             return {...uiState, addContact: {...addContact, cachedUsers: payload}}
+        }
+        case OPEN_LOGIN_PAGE: {
+            return {...uiState, loginPage: LOGIN_LOGIN}
+        }
+        case OPEN_SIGNUP_PAGE: {
+                return {...uiState, loginPage: LOGIN_SIGNUP}
         }
         default:
             return uiState

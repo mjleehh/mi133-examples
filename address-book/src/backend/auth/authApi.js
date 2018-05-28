@@ -9,6 +9,7 @@ export default function authApi() {
 
     router.post('/auth/signup',  async (req, res, next) => {
         const {email, nickname, password} = req.body
+        console.log(email, nickname, password)
         let user
         try {
             user = await User.createChecked(email, nickname, password)
@@ -18,8 +19,14 @@ export default function authApi() {
         }
 
         const savedUser = await user.save()
-        res.json(savedUser)
-        next()
+        req.login(savedUser, err => {
+            if (err) {
+                res.status(400).end()
+                return
+            }
+            res.json(savedUser)
+            next()
+        })
     })
 
     router.get('/auth/loggedin', (req, res) => {

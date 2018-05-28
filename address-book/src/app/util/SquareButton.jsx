@@ -1,6 +1,6 @@
 import React from 'react'
 
-import defaultStyle from './SquareButton.iscss'
+import defaultStyle from './SquareButton.scss'
 
 export default function(props) {
     const {onClick, style, value} = props

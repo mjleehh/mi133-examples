@@ -1,6 +1,6 @@
 import React from 'react'
 
-import style from './Spacer.iscss'
+import style from './Spacer.scss'
 
 export default function(props) {
     if (props.horizontal) {

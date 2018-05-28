@@ -7,8 +7,8 @@ import Modal from 'react-modal'
 import ReactDOM from 'react-dom'
 import reducer from 'app/logic/reducer'
 
-import MainScreen from 'app/MainScreen'
-import './global.scss'
+import MainScreen from 'app/ui/MainScreen'
+import './global.gscss'
 
 import moment from 'moment'
 import {requestData} from "./logic/actions"

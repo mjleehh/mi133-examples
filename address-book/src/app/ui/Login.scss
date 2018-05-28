@@ -1,0 +1,21 @@
+@import './src/app/util/common';
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: $normalGap;
+  background: $darkBrown;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  width: 6em;
+}

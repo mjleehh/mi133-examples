@@ -16,6 +16,12 @@ export const closeDialog = () => ({type: CLOSE_DIALOG})
 export const SET_CACHED_USERS = 'UI/SET_CACHED_USERS'
 export const setCachedUsers = cachedUsers => ({type: SET_CACHED_USERS, payload: cachedUsers})
 
+export const OPEN_LOGIN_PAGE = 'UI/OPEN_LOGIN_PAGE'
+export const openLoginPage = () => ({type: OPEN_LOGIN_PAGE})
+
+export const OPEN_SIGNUP_PAGE = 'UI/OPEN_SIGNUP_PAGE'
+export const openSignupPage =  () => ({type: OPEN_SIGNUP_PAGE})
+
 // data
 
 export const SET_USER_INFO = 'DATA/SET_USER_INFO'
@@ -68,6 +74,17 @@ export const requestLogin = (email, password) => async dispatch => {
     try {
         const loginRes = await axios.put('/api/auth/login', {email, password})
         dispatch(setUserInfo(loginRes.data))
+        const contactsRes = await axios.get('/api/me/contacts')
+        dispatch(setContacts(contactsRes.data.contacts))
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const requestSignup = (email, nickname, password) => async dispatch => {
+    try {
+        const signupRes = await axios.post('/api/auth/signup', {email, nickname, password})
+        dispatch(setUserInfo(signupRes.data))
         const contactsRes = await axios.get('/api/me/contacts')
         dispatch(setContacts(contactsRes.data.contacts))
     } catch (e) {

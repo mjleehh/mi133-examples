@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Contact from 'app/contacts/Contact'
+import Contact from 'app/ui/contacts/Contact'
 import SquareButton from 'app/util/SquareButton'
 import {startAddContactDialog} from 'app/logic/actions'
 

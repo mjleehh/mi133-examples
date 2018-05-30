@@ -2,7 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {closeDialog, requestAddContact} from 'app/logic/actions'
+import Spacer from 'app/util/Spacer'
+import FlexGap from 'app/util/FlexGap'
 import User from './User'
+import s from './AddContact.scss'
 
 @connect(({ui: {addContact}, data: {userInfo: {_id}, contacts}}) => ({...addContact, userId: _id, contacts}))
 export default class AddContact extends React.Component {
@@ -26,11 +29,14 @@ export default class AddContact extends React.Component {
             return !(isSelf || isContact)
         })
         const users = filteredUsers.map(user =>
-            <User key={user._id} {...user} onSelect={this.handleSelect}/>)
+            <div key={user._id}>
+                <User {...user} onSelect={this.handleSelect}/>
+                <Spacer/>
+            </div>)
 
-        return <div>
+        return <div style={s.container}>
             <div>{users}</div>
-            <div>
+            <div style={s.cancelRow}>
                 <input type="button" value="cancel" onClick={this.handleCancel}/>
             </div>
         </div>

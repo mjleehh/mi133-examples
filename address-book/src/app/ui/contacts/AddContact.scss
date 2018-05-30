@@ -1,0 +1,11 @@
+@import './src/app/util/common';
+
+.container {
+  width: $areaWidth * 0.7;
+}
+
+.cancelRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

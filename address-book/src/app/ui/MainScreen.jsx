@@ -48,8 +48,9 @@ export default class MainScreen extends React.Component {
                 <div style={style.headerItem}>Address Book</div>
                 <FlexGap/>
                 <div style={style.headerItem}>
-                    {userInfo.email}
-                    <input type="button" value="logout" onClick={this.handleLogout}/>
+                    <div>{userInfo.email}</div>
+                    <Spacer horizontal/>
+                    <div onClick={this.handleLogout}>&#x23FB;</div>
                 </div>
             </div>
             <Spacer large/>

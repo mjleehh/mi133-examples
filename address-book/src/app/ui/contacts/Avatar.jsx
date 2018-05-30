@@ -1,8 +1,8 @@
 import React from 'react'
 
-import defaultStyle from './SquareButton.scss'
+import defaultStyle from './Avatar.scss'
 
-export default function(props) {
+export default function Avatar(props) {
     const {onClick, style, value} = props
 
     const handleClick = onClick
@@ -10,10 +10,10 @@ export default function(props) {
         : () => {}
 
     const outerStyle = style
-        ? {...defaultStyle.button, ...style}
-        : defaultStyle.button
+        ? {...defaultStyle.avatar, ...style}
+        : defaultStyle.avatar
 
     return <div style={outerStyle} onClick={handleClick}>
-            <div style={defaultStyle.innerButton}>{value}</div>
+            <div style={defaultStyle.innerAvatar}>{value}</div>
         </div>
 }

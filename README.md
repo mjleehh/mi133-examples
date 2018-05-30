@@ -71,3 +71,10 @@ of the elm programming language as a real functional alternative to react/redux.
 elm and Koa but implemented using React/Redux and express.
 
 ![infinite counter with React screenshot](/resources/infinite-counter-with-react.png)
+
+`/address-book`: A little address book app using passportjs for authentication.
+
+![signup](resources/address-book/signup.png)
+![login](resources/address-book/login.png)
+![main screen](resources/address-book/main-screen.png)
+![add contact menu](resources/address-book/add-contact-menu.png)

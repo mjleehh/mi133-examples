@@ -1,0 +1,13 @@
+@import './src/app/util/common';
+
+.gridContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.gridRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

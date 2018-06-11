@@ -1,0 +1,29 @@
+@import 'util/common';
+
+#main {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background: $lightBrown;
+  font-family: Helvetica;
+}
+
+input[type=button], input[type=submit] {
+  border: none;
+  height: $buttonHeight;
+}

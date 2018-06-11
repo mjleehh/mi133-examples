@@ -1,0 +1,18 @@
+@import './src/app/util/common';
+
+.button {
+  background: $blue;
+  width: $buttonHeight;
+  height: $buttonHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.innerButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: none;
+  border: none;
+}

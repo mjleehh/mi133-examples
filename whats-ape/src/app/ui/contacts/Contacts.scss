@@ -1,0 +1,13 @@
+@import './src/app/util/common';
+
+.container {
+  background: $silver;
+  width: $areaWidth;
+  display: flex;
+  flex-direction: column;
+}
+
+.addLine {
+  background: $lightGray;
+  padding: $normalGap;
+}

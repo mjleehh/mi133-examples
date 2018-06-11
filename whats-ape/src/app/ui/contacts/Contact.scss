@@ -1,0 +1,13 @@
+@import './src/app/util/common';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: $normalGap;
+}
+
+.deleteButton {
+  background: $bad;
+}

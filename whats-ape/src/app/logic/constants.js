@@ -1,0 +1,3 @@
+export const DIALOG_ADD_CHAT = 'DIALOG_ADD_CHAT'
+export const LOGIN_LOGIN = 'LOGIN_LOGIN'
+export const LOGIN_SIGNUP = 'LOGIN_SIGNUP'

@@ -1,0 +1,62 @@
+@import './src/app/util/common';
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: $normalGap;
+}
+
+.label {
+  width: 8em;
+}
+
+.input {
+  border: none;
+  background: $lightGreen;
+}
+
+.badInput {
+  padding: $normalGap;
+  color: $bad;
+}
+
+@mixin button {
+  border: none;
+  height: 2em;
+  min-width: 8em;
+}
+
+.loginButton {
+  @include button;
+  background: $blue;
+}
+
+.showSignupButton {
+  @include button;
+  background: $green;
+}
+
+.signupButton {
+  @include button;
+  background: $bad;
+}
+
+.cancelSignupButton {
+  @include button;
+  background: $green;
+}
+

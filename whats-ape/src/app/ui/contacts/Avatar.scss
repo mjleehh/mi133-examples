@@ -1,0 +1,19 @@
+@import './src/app/util/common';
+
+.avatar {
+  background: $green;
+  border-radius: $buttonHeight;
+  width: 1.5 * $buttonHeight;
+  height: 1.5 * $buttonHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.innerAvatar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: none;
+  border: none;
+}

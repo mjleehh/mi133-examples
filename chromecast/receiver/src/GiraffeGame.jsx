@@ -47,7 +47,8 @@ export default class GiraffeGame extends React.Component {
             const {keyCode} = e
             const direction = keyCodeToDirection(keyCode)
             if (direction !== null) {
-                this.update(direction, e.shiftKey)
+                //this.update(direction, e.shiftKey)
+                this.setState({direction})
             }
         }
     }
@@ -65,6 +66,22 @@ export default class GiraffeGame extends React.Component {
             leaf,
             intersection: null,
         })
+
+        let prevTime = null
+        const gameLoop = (time) => {
+            if (prevTime === null) {
+                prevTime = time
+            } else if (time - prevTime > 350) {
+                prevTime = time
+                this.update(this.state.direction, false)
+            }
+
+            if (this.state.state === 'running') {
+                requestAnimationFrame(gameLoop)
+            }
+        }
+
+        requestAnimationFrame(gameLoop)
     }
 
     update(direction, shiftKey) {

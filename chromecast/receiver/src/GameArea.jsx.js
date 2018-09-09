@@ -18,7 +18,6 @@ function draw(gameGrid, giraffe, leaf, intersection) {
 
     for (let val of giraffe.iter()) {
         const {pos, prevDirection, nextDirection} = val
-        console.log(nextDirection, prevDirection)
         if (nextDirection === null) {
             grid[pos.y * width + pos.x] = <div className="tile head"> </div>
         } else if (prevDirection === null) {

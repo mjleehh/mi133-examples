@@ -76,18 +76,27 @@ export default class Giraffe {
     iter() {
         return (function*(head, neck) {
             let iterPos = head
+            let prevDirection = neck.length > 0 ? neck[0] : null
             yield {
                 pos: iterPos,
-                direction: null,
+                nextDirection: null,
+                prevDirection,
                 index: 0,
             }
 
-            for (let i = 0; i < neck.length; ++i) {
-                const direction = neck[i]
-                iterPos = advance(iterPos, direction)
+            const lastIndex = neck.length - 1
+            for (let i = 0; i <= lastIndex; ++i) {
+                iterPos = advance(iterPos, prevDirection)
+                const nextDirection = invert(prevDirection)
+                if (i !== lastIndex) {
+                    prevDirection = neck[i + 1]
+                } else {
+                    prevDirection = null
+                }
                 yield {
                     pos: iterPos,
-                    direction,
+                    nextDirection,
+                    prevDirection,
                     index: i + 1,
                 }
             }

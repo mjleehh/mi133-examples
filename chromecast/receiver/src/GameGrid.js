@@ -14,7 +14,7 @@ export default class GameGrid {
         this._height = height
     }
 
-    isInGrid(position) {
+    contains(position) {
         const {x, y} = position
         return x >= 0 && x < this._width && y >= 0 && y < this._height
     }

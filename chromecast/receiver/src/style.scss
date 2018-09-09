@@ -1,0 +1,43 @@
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.tile {
+  height: 12px;
+  width: 12px;
+}
+
+.lightTile {
+  background: #cfcfcf;
+}
+
+.darkTile {
+  background: gainsboro;
+}
+
+.head {
+  background: yellow;
+}
+
+.segment {
+  background: #c3c400;
+}
+
+.tail {
+  background: #b06c30;
+}
+
+.leaf {
+  background: yellowgreen;
+}
+
+body {
+  color: white;
+  background: black;
+}

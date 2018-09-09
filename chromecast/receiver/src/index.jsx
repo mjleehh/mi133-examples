@@ -3,7 +3,7 @@ import ReactDom from 'react-dom'
 
 import GiraffeGame from "./GiraffeGame";
 
-
+import './style.scss'
 
 function gameLoop() {
     console.log('now')

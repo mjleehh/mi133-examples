@@ -1,6 +1,7 @@
 import React from 'react'
 import GameGrid from './GameGrid'
 import Giraffe from './Giraffe'
+import GameArea from "./GameArea.jsx";
 
 function keyCodeToDirection(keyCode) {
     switch (keyCode) {
@@ -34,85 +35,91 @@ function placeLeaf(gameGrid, giraffe) {
     return {x, y}
 }
 
-function draw(gameGrid, giraffe, leaf, intersection) {
-    const {width, height} = gameGrid
-    const grid = new Array(width * height).fill('.')
-
-    for (let val of giraffe.iter()) {
-        const {pos, index} = val
-        if (index === 0) {
-            grid[pos.y * width + pos.x] = '8'
-        } else {
-            grid[pos.y * width + pos.x] = 'o'
-        }
-    }
-
-    if (leaf) {
-        const {x, y} = leaf
-        grid[y * width + x] = '%'
-    }
-
-    if (intersection) {
-        const {x, y} = intersection
-        grid[y * width + x] = 'X'
-    }
-
-    let res = ''
-    for (let y = 0; y < height; ++y) {
-        for (let x = 0; x < width; ++x) {
-            res += grid[y * width + x]
-        }
-        res += '\n'
-    }
-
-    return res
-}
-
 export default class GiraffeGame extends React.Component {
     constructor(props) {
         super(props)
 
-        const gameGrid = new GameGrid(16, 16)
-        const giraffe = new Giraffe(gameGrid.center())
-        const leaf = placeLeaf(gameGrid, giraffe)
-
         this.state = {
-            direction: 'w',
-            gameGrid,
-            giraffe,
-            leaf,
-            intersection: null,
+            state: 'inactive'
         }
-
-        console.log(leaf)
 
         window.onkeydown = e => {
             const {keyCode} = e
             const direction = keyCodeToDirection(keyCode)
             if (direction !== null) {
-                const nextHead = this.state.giraffe.nextHead(direction)
-                if (_.isEqual(this.state.leaf, nextHead)) {
-                    const {giraffe, intersection} = this.state.giraffe.grow(direction)
-                    const leaf = placeLeaf(this.state.gameGrid, giraffe)
-                    this.setState({direction, giraffe, leaf, intersection})
-                } else if (e.shiftKey) {
-                    const {giraffe, intersection} = this.state.giraffe.grow(direction)
-                    console.log(intersection)
-                    this.setState({direction, giraffe, intersection})
-                } else {
-                    const {giraffe, intersection} = this.state.giraffe.move(direction)
-                    console.log(intersection)
-                    this.setState({direction, giraffe, intersection})
-                }
+                this.update(direction, e.shiftKey)
             }
         }
     }
 
+    startNew() {
+        const gameGrid = new GameGrid(16, 16)
+        const giraffe = new Giraffe(gameGrid.center())
+        const leaf = placeLeaf(gameGrid, giraffe)
+
+        this.setState({
+            state: 'running',
+            direction: 'w',
+            gameGrid,
+            giraffe,
+            leaf,
+            intersection: null,
+        })
+    }
+
+    update(direction, shiftKey) {
+        if (this.state.state !== 'running') {
+            return
+        }
+
+        const currentGiraffe = this.state.giraffe
+        const {gameGrid} = this.state
+        const nextHead = currentGiraffe.nextHead(direction)
+        if (!gameGrid.contains(nextHead)) {
+            this.setState({state:'gameover'})
+            return
+        }
+
+        if (_.isEqual(this.state.leaf, nextHead)) {
+            const {giraffe, intersection} = currentGiraffe.grow(direction)
+            const leaf = placeLeaf(gameGrid, giraffe)
+            this.setState({direction, giraffe, leaf, intersection})
+        } else if (shiftKey) {
+            const {giraffe, intersection} = currentGiraffe.grow(direction)
+            if (intersection) {
+                this.setState({state: 'gameover'})
+                return
+            }
+            this.setState({direction, giraffe, intersection})
+        } else {
+            const {giraffe, intersection} = currentGiraffe.move(direction)
+            if (intersection) {
+                this.setState({state: 'gameover'})
+                return
+            }
+            this.setState({direction, giraffe, intersection})
+        }
+    }
+
     render() {
-        const {giraffe, gameGrid, leaf, intersection} = this.state
-        return <div>
-            <div>giraffe game</div>
-            <pre>{draw(gameGrid, giraffe, leaf, intersection)}</pre>
-        </div>
+        const {state, giraffe, gameGrid, leaf, intersection} = this.state
+        if (state === 'inactive') {
+            return <div>
+                <div>giraffe game</div>
+                <button onClick={() => this.startNew()}>start game</button>
+            </div>
+        } else if (state === 'gameover') {
+            return <div>
+                <div>giraffe game</div>
+                <div>GAME OVER!</div>
+                <div><button onClick={() => this.startNew()}>restart</button></div>
+                <GameArea gameGrid={gameGrid} giraffe={giraffe} leaf={leaf}/>
+            </div>
+        } else {
+            return <div>
+                <div>giraffe game</div>
+                <GameArea gameGrid={gameGrid} giraffe={giraffe} leaf={leaf}/>
+            </div>
+        }
     }
 }

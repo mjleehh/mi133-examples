@@ -5,9 +5,7 @@ import GiraffeGame from "./GiraffeGame";
 
 import './style.scss'
 
-const {userAgent} = navigator
-
-if (/ CrKey\//.test(userAgent)) {
+if (/ CrKey\//.test(navigator.userAgent)) {
     console.log('starting cast')
     cast.framework.CastReceiverContext.getInstance().start()
     cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG)

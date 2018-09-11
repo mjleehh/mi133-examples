@@ -29,7 +29,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({template: __dirname + '/index.html'}),
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['www']),
     ],
     devtool: 'source-map',
 }

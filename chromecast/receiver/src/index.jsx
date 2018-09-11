@@ -10,6 +10,7 @@ const {userAgent} = navigator
 if (/ CrKey\//.test(userAgent)) {
     console.log('starting cast')
     cast.framework.CastReceiverContext.getInstance().start()
+    cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG)
 }
 
 ReactDom.render(

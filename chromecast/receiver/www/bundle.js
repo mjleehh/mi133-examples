@@ -39565,6 +39565,8 @@ if (/ CrKey\//.test(navigator.userAgent)) {
   cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.VERBOSE);
   console.log('starting cast');
   window.isGoogleCast = true;
+} else {
+  window.isGoogleCast = false;
 }
 
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GiraffeGame__WEBPACK_IMPORTED_MODULE_2__["default"], null), document.getElementById('main'));

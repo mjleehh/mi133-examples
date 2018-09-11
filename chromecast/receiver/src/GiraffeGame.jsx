@@ -1,7 +1,7 @@
 import React from 'react'
 import GameGrid from './GameGrid'
 import Giraffe from './Giraffe'
-import GameArea from "./GameArea.jsx";
+import GameArea from "./GameArea";
 
 function keyCodeToDirection(keyCode) {
     switch (keyCode) {

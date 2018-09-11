@@ -9,6 +9,7 @@ if (/ CrKey\//.test(navigator.userAgent)) {
     cast.framework.CastReceiverContext.getInstance().start()
     cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.VERBOSE)
     console.log('starting cast')
+    window.isGoogleCast = true
 }
 
 ReactDom.render(

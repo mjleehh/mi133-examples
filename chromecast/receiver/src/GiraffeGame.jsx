@@ -51,6 +51,12 @@ export default class GiraffeGame extends React.Component {
                 this.setState({direction})
             }
         }
+
+        this.handleTouch = direction => {
+            if (direction !== null) {
+                this.setState({direction})
+            }
+        }
     }
 
     startNew() {
@@ -121,22 +127,28 @@ export default class GiraffeGame extends React.Component {
     render() {
         const {state, giraffe, gameGrid, leaf, intersection} = this.state
         if (state === 'inactive') {
-            return <div>
-                <div>giraffe game</div>
-                <button onClick={() => this.startNew()}>start game</button>
-            </div>
+            return centeredGame(<button onClick={() => this.startNew()}>start game</button>)
         } else if (state === 'gameover') {
-            return <div>
-                <div>giraffe game</div>
-                <div>GAME OVER!</div>
-                <div><button onClick={() => this.startNew()}>restart</button></div>
-                <GameArea gameGrid={gameGrid} giraffe={giraffe} leaf={leaf}/>
-            </div>
+            return centeredGame(
+                <div>
+                    <div>GAME OVER!</div>
+                    <div><button onClick={() => this.startNew()}>restart</button></div>
+                    <GameArea gameGrid={gameGrid} giraffe={giraffe} leaf={leaf}/>
+                </div>)
         } else {
-            return <div>
-                <div>giraffe game</div>
-                <GameArea gameGrid={gameGrid} giraffe={giraffe} leaf={leaf}/>
-            </div>
+            return centeredGame(
+                <GameArea onTouch={this.handleTouch} gameGrid={gameGrid} giraffe={giraffe} leaf={leaf}/>)
         }
     }
+}
+
+function centeredGame(content) {
+    return <div className="gameContainer">
+        <div className="innerGameContainer">
+            <div>
+                <div>Greedy Giraffe</div>
+                {content}
+            </div>
+        </div>
+    </div>
 }

@@ -6,9 +6,9 @@ import GiraffeGame from "./GiraffeGame";
 import './style.scss'
 
 if (/ CrKey\//.test(navigator.userAgent)) {
-    console.log('starting cast')
     cast.framework.CastReceiverContext.getInstance().start()
-    cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG)
+    cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.VERBOSE)
+    console.log('starting cast')
 }
 
 ReactDom.render(

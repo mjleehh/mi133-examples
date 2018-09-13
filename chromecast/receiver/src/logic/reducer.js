@@ -2,12 +2,17 @@ import {
     GAME_OVER,
     GAME_PAUSED, GAME_STARTED,
     NOT_STARTED,
-    WEST,
 } from "./constants";
-import {END_GAME, PAUSE_GAME, SET_DIRECTION, setDirection, START_GAME, UPDATE} from "./actions";
+import {
+    END_GAME,
+    PAUSE_GAME,
+    SET_DIRECTION, SET_GOOGLE_CAST,
+    START_GAME,
+    UPDATE
+} from "../../../common/actions";
 import Giraffe from "../model/Giraffe";
-import Grid from "../ui/Grid";
-import {invert} from "../model/directions";
+import Grid from "../model/Grid";
+import {WEST, invert} from "../../../common/directions";
 
 function initialState() {
     return {
@@ -20,6 +25,7 @@ function initialState() {
         giraffe: null,
         leaf: null,
         intersection: null,
+        isGoogleCast: false,
     }
 }
 
@@ -105,6 +111,9 @@ export default function reducer(state = initialState(), {type, payload}) {
         }
         case UPDATE: {
             return updateReducer(state)
+        }
+        case SET_GOOGLE_CAST: {
+            return {...state, isGoogleCast: payload}
         }
         default: {
             return state

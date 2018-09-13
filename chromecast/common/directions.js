@@ -1,4 +1,7 @@
-import {EAST, NORTH, SOUTH, WEST} from "../logic/constants";
+export const NORTH = 'NORTH'
+export const SOUTH = 'SOUTH'
+export const WEST = 'WEST'
+export const EAST = 'EAST'
 
 export function invert(direction) {
     switch (direction) {

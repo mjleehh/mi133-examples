@@ -7,11 +7,11 @@ import {Provider} from 'react-redux'
 import reducer from './logic/reducer'
 
 import printVersion from './printVersion'
-import Chromecast from './ui/Chromecast'
-import GameEvents from './GameEvents'
 import GiraffeGame from "./ui/GiraffeGame";
+import Events from "./Events";
 
 import './style.scss'
+
 
 printVersion()
 
@@ -19,12 +19,8 @@ const store = createStore(
     reducer,
     devToolsEnhancer())
 
-const chromecast = new Chromecast()
-const gameEvents = new GameEvents(store)
-gameEvents.connectChromecast(chromecast)
-
-
-gameEvents.start()
+const events = new Events(store)
+events.start()
 
 
 ReactDom.render(

@@ -12,3 +12,6 @@ export const endGame = ({type: END_GAME})
 
 export const UPDATE = 'UPDATE'
 export const update = () => ({type: UPDATE})
+
+export const SET_GOOGLE_CAST = 'SET_GOOGLE_CAST'
+export const setGoogleCast = isGoogleCast => ({type: SET_GOOGLE_CAST, payload: isGoogleCast})

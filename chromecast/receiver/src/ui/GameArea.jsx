@@ -1,6 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Giraffe from "./Giraffe";
+import Giraffe from "../model/Giraffe";
+import {setDirection} from "../../../common/actions";
+import {
+    EAST,
+    NORTH,
+    WEST,
+    SOUTH,
+} from "../../../common/directions";
 
 function draw(gameGrid, giraffe, leaf, intersection, areaSize) {
     const {width, height} = gameGrid
@@ -72,6 +79,7 @@ export default class GameArea extends React.Component {
 
         this.touchStart = null
         this.touchDelta = null
+
         this.handleTouchStart = e => {
             const {clientX, clientY} = e.touches[0]
             this.touchStart = {clientX, clientY}
@@ -104,17 +112,18 @@ export default class GameArea extends React.Component {
             }
 
             const {x, y} = touchDelta
+            const {dispatch} = this.props
             if (Math.abs(x) > Math.abs(y)) {
                 if (x > 0) {
-                    onTouch('e')
+                    dispatch(setDirection(EAST))
                 } else {
-                    onTouch('w')
+                    dispatch(setDirection(WEST))
                 }
             } else {
                 if (y > 0) {
-                    onTouch('s')
+                    dispatch(setDirection(SOUTH))
                 } else {
-                    onTouch('n')
+                    dispatch(setDirection(NORTH))
                 }
             }
 

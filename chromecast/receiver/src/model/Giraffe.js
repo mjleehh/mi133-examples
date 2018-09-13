@@ -3,8 +3,8 @@ import {
     EAST,
     NORTH,
     SOUTH,
-} from "../logic/constants";
-import {invert} from "./directions";
+    invert,
+} from "../../../common/directions";
 
 function advance(pos, direction) {
     let {x, y} = pos

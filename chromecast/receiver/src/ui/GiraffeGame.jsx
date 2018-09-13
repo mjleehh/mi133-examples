@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import GameArea from "../model/GameArea";
-import {startGame} from "../logic/actions";
+import GameArea from "./GameArea";
+import {startGame} from "../../../common/actions";
 import {GAME_OVER, GAME_STARTED, NOT_STARTED} from "../logic/constants";
 
 

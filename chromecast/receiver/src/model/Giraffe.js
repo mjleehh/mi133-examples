@@ -1,20 +1,27 @@
+import {
+    WEST,
+    EAST,
+    NORTH,
+    SOUTH,
+} from "../logic/constants";
+import {invert} from "./directions";
 
 function advance(pos, direction) {
     let {x, y} = pos
     switch (direction) {
-        case 'w': {
+        case WEST: {
             x -= 1
             break
         }
-        case 'e': {
+        case EAST: {
             x += 1
             break
         }
-        case 'n': {
+        case NORTH: {
             y -= 1
             break
         }
-        case 's': {
+        case SOUTH: {
             y += 1
             break
         }
@@ -24,29 +31,16 @@ function advance(pos, direction) {
     return {x, y}
 }
 
-function invert(direction) {
-    switch (direction) {
-        case 'w': {
-            return 'e'
-        }
-        case 'e': {
-            return 'w'
-        }
-        case 'n': {
-            return 's'
-        }
-        case 's': {
-            return 'n'
-        }
-        default:
-            throw `invalid direction ${direction}`
-    }
-}
-
 export default class Giraffe {
-    constructor(head, neck = []) {
-        this._head = {...head}
-        this._neck = neck
+    constructor(fst, neck = []) {
+        if (fst instanceof Giraffe || _.has(fst, 'head')) {
+            // check if argument is giraffe like object
+            this._head = fst.head
+            this._neck = fst.neck
+        } else {
+            this._head = fst
+            this._neck = neck
+        }
     }
 
     move(direction) {
@@ -122,5 +116,9 @@ export default class Giraffe {
 
     get neck() {
         return [...this._neck]
+    }
+
+    toObject() {
+        return {head: this._head, neck: this._neck}
     }
 }

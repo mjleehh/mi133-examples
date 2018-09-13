@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import Giraffe from "./Giraffe";
 
 function draw(gameGrid, giraffe, leaf, intersection, areaSize) {
     const {width, height} = gameGrid
@@ -16,7 +18,7 @@ function draw(gameGrid, giraffe, leaf, intersection, areaSize) {
         }
     }
 
-    for (let val of giraffe.iter()) {
+    for (let val of new Giraffe(giraffe).iter()) {
         const {pos, prevDirection, nextDirection} = val
         if (nextDirection === null) {
             grid[pos.y * width + pos.x] = "head"
@@ -60,6 +62,7 @@ function determineAreaSize() {
     return smallSide * areaFactor
 }
 
+@connect(({grid, giraffe, intersection, leaf}) => ({grid, giraffe, intersection, leaf}))
 export default class GameArea extends React.Component {
     constructor(props) {
         super(props)
@@ -125,9 +128,9 @@ export default class GameArea extends React.Component {
 
     render() {
         const {areaSize} = this.state
-        const {gameGrid, giraffe, leaf} = this.props
+        const {grid, giraffe, intersection, leaf} = this.props
         return <div onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
-            <div className="column">{draw(gameGrid, giraffe, leaf, null, areaSize)}</div>
+            <div className="column">{draw(grid, giraffe, leaf, intersection, areaSize)}</div>
         </div>
     }
 }

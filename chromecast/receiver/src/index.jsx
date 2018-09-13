@@ -1,19 +1,34 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import {createStore} from 'redux'
+import {devToolsEnhancer} from 'redux-devtools-extension'
+import {Provider} from 'react-redux'
 
-import GiraffeGame from "./GiraffeGame";
+import reducer from './logic/reducer'
+
+import printVersion from './printVersion'
+import Chromecast from './ui/Chromecast'
+import GameEvents from './GameEvents'
+import GiraffeGame from "./ui/GiraffeGame";
 
 import './style.scss'
 
-if (/ CrKey\//.test(navigator.userAgent)) {
-    cast.framework.CastReceiverContext.getInstance().start()
-    cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.VERBOSE)
-    console.log('starting cast')
-    window.isGoogleCast = true
-} else {
-    window.isGoogleCast = false
-}
+printVersion()
+
+const store = createStore(
+    reducer,
+    devToolsEnhancer())
+
+const chromecast = new Chromecast()
+const gameEvents = new GameEvents(store)
+gameEvents.connectChromecast(chromecast)
+
+
+gameEvents.start()
+
 
 ReactDom.render(
-    <GiraffeGame/>,
+    <Provider store={store}>
+        <GiraffeGame/>
+    </Provider>,
     document.getElementById('main'))

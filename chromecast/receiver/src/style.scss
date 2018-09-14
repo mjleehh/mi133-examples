@@ -42,6 +42,8 @@
 }
 
 .gameContainer {
+  position: absolute;
+  background: none;
   width: 100%;
   height: 100%;
   display: flex;
@@ -49,10 +51,14 @@
   justify-content: center;
 }
 
-.innerGameContainer {
+.centeredColumn {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.fullWindow {
+
 }
 
 html, body {
@@ -64,4 +70,6 @@ html, body {
 body {
   color: white;
   background: black;
+  font-family: Helvetica;
 }
+

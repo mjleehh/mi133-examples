@@ -1,13 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Giraffe from "../model/Giraffe";
-import {setDirection} from "../../../common/actions";
-import {
-    EAST,
-    NORTH,
-    WEST,
-    SOUTH,
-} from "../../../common/directions";
+import MoveGestures from "../../../common/MoveGestures";
 
 function draw(gameGrid, giraffe, leaf, intersection, areaSize) {
     const {width, height} = gameGrid
@@ -77,58 +71,7 @@ export default class GameArea extends React.Component {
         this.state = {areaSize: determineAreaSize()}
         window.addEventListener('resize', this.resize.bind(this))
 
-        this.touchStart = null
-        this.touchDelta = null
-
-        this.handleTouchStart = e => {
-            const {clientX, clientY} = e.touches[0]
-            this.touchStart = {clientX, clientY}
-        }
-
-        this.handleTouchMove = e => {
-            const {touchStart} = this
-            const {clientX, clientY} = e.touches[0]
-            if (touchStart) {
-                this.touchDelta = {
-                    x: clientX - touchStart.clientX,
-                    y: clientY - touchStart.clientY,
-                }
-            }
-        }
-
-        this.handleTouchEnd = e => {
-            const {touchDelta} = this
-            const {onTouch} = this.props
-
-            this.touchDelta = null
-            this.touchStart = null
-
-            if (!onTouch) {
-                return null
-            }
-
-            if (!touchDelta) {
-                return null
-            }
-
-            const {x, y} = touchDelta
-            const {dispatch} = this.props
-            if (Math.abs(x) > Math.abs(y)) {
-                if (x > 0) {
-                    dispatch(setDirection(EAST))
-                } else {
-                    dispatch(setDirection(WEST))
-                }
-            } else {
-                if (y > 0) {
-                    dispatch(setDirection(SOUTH))
-                } else {
-                    dispatch(setDirection(NORTH))
-                }
-            }
-
-            e.preventDefault()
-        }
+        this._moveGestures = new MoveGestures(props.dispatch)
     }
 
     resize() {
@@ -138,7 +81,12 @@ export default class GameArea extends React.Component {
     render() {
         const {areaSize} = this.state
         const {grid, giraffe, intersection, leaf} = this.props
-        return <div onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
+        const {_moveGestures} = this
+
+        return <div
+                onTouchStart={_moveGestures.start()}
+                onTouchMove={_moveGestures.move()}
+                onTouchEnd={_moveGestures.end()}>
             <div className="column">{draw(grid, giraffe, leaf, intersection, areaSize)}</div>
         </div>
     }

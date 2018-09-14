@@ -6,7 +6,7 @@ import {startGame} from "../../../common/actions";
 import {GAME_OVER, GAME_STARTED, NOT_STARTED} from "../logic/constants";
 
 
-@connect(({gameState}) => ({gameState}))
+@connect(({gameState, isGoogleCast}) => ({gameState, isGoogleCast}))
 export default class GiraffeGame extends React.Component {
     constructor(props) {
         super(props)
@@ -19,28 +19,35 @@ export default class GiraffeGame extends React.Component {
     }
 
     render() {
-        const {gameState} = this.props
+        const {gameState, isGoogleCast} = this.props
+        const restartButton = !isGoogleCast
+            ? <button onClick={() => this.props.dispatch(startGame())}>restart</button>
+            : <div> </div>
+
         if (gameState === GAME_OVER) {
-            return centeredGame(
-                <div>
+            return <div className="fullWindow">
+                {centeredGame(<GameArea />)}
+                {centeredGame(<div className="centeredColumn">
                     <div>GAME OVER!</div>
-                    <div><button onClick={() => this.props.dispatch(startGame())}>restart</button></div>
-                    <GameArea />
-                </div>)
+                    {restartButton}
+                </div>)}
+            </div>
         } else if (gameState === GAME_STARTED) {
             return centeredGame(
                 <GameArea onTouch={this.handleTouch} />)
         } else {
-            return centeredGame(<button onClick={() => this.props.dispatch(startGame())}>start game</button>)
+            return centeredGame(<div className="centeredColumn">
+                    <div>Greedy Giraffe</div>
+                    <button onClick={() => this.props.dispatch(startGame())}>start game</button>
+                </div>)
         }
     }
 }
 
 function centeredGame(content) {
     return <div className="gameContainer">
-        <div className="innerGameContainer">
+        <div className="centeredColumn">
             <div>
-                <div>Greedy Giraffe</div>
                 {content}
             </div>
         </div>

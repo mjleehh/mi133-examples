@@ -1,7 +1,7 @@
 import {setGoogleCast} from "../../common/actions";
 
 export default class SenderEvents {
-    constructor(store, debugLevel = cast.framework.LoggerLevel.DEBUG) {
+    constructor(store, debugLevel = 1) {
         const isGoogleCast = / CrKey\//.test(navigator.userAgent)
         store.dispatch(setGoogleCast(isGoogleCast))
 

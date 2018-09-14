@@ -2,7 +2,7 @@
   "env": {
     "development": {
       "presets": [
-        ["@babel/env", {"targets": {"chrome": "68"}}],
+        ["@babel/env", {"targets": {"chrome": "68", "firefox": "62"}}],
         "@babel/react"
       ],
       "plugins": [

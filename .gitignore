@@ -5,3 +5,5 @@ dist
 npm-debug.log
 package-lock.json
 coverage
+project_name
+www

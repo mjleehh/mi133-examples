@@ -1,0 +1,12 @@
+.centered-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.number-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1em;
+}

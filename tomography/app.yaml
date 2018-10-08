@@ -1,0 +1,31 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /
+  static_files: www/index.html
+  upload: www/index.html
+
+- url: /main.wasm
+  static_files: www/main.wasm
+  mime_type: application/wasm
+  upload: www/main.wasm
+
+- url: /(.*)
+  static_files: www/\1
+  upload: www/(.*)
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?\..*$
+- node_modules/
+- src/
+- index.html
+- package.json
+- package-lock.json
+- webpack.config.js
+- project_name
+- app.yaml

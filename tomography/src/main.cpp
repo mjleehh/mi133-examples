@@ -1,10 +1,14 @@
 #include <emscripten.h>
+#include <stdint.h>
+#include <stdio.h>
 
 extern "C" {
 
 EMSCRIPTEN_KEEPALIVE int fib(unsigned int x);
 
-EMSCRIPTEN_KEEPALIVE int manyFib(unsigned int x[], unsigned int n);
+EMSCRIPTEN_KEEPALIVE int addArray(uint8_t nums[], unsigned int n);
+
+extern void printInt(int i);
 
 }
 
@@ -22,10 +26,11 @@ int fib(unsigned int x) {
 //
 // https://becominghuman.ai/passing-and-returning-webassembly-array-parameters-a0f572c65d97
 //
-int manyFib(unsigned int x[], unsigned int n) {
+int addArray(uint8_t* nums, unsigned int n) {
     int retval = 0;
     for (int i = 0; i < n; ++i) {
-        retval += fib(x[n]);
+        printInt(nums[i]);
+        retval += nums[i];
     }
     return retval;
 }

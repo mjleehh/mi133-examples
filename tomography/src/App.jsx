@@ -6,13 +6,14 @@ import {withStyles} from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
 import Calculator from './Calculator'
+import SourceImage from "./SourceImage"
 
 const styles = (theme) => ({
     toolbar: theme.mixins.toolbar,
 })
 
 function App(props) {
-    const {classes, functions} = props
+    const {classes, module} = props
 
     return <div>
         <div>
@@ -26,7 +27,7 @@ function App(props) {
         </div>
         <div className={classes.toolbar}></div>
         <Grid container justify="center">
-            <Calculator functions={functions}/>
+            <SourceImage module={module}/>
         </Grid>
     </div>
 }

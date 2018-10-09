@@ -25,7 +25,8 @@ module.exports = {
                 use: {
                     loader: 'cpp-wasm-loader',
                     options: {
-                        fetchFiles: true
+                        fetchFiles: true,
+                        fullEnv: true,
                     }
                 }
             }

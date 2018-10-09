@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
-import cppModule from './main.cpp'
+import cppBinary from './main.cpp'
 import App from './App'
 
 import './style.scss'
@@ -16,11 +16,16 @@ const theme = createMuiTheme({
 
 
 async function main() {
-    const functions = (await cppModule.init()).exports
+    const cppModule = await cppBinary.init(imports => {
+        imports._printInt = function (i) {
+            console.log(i)
+        }
+        return imports
+    })
 
     ReactDom.render(
         <MuiThemeProvider theme={theme}>
-            <App functions={functions}/>
+            <App module={cppModule}/>
         </MuiThemeProvider>,
         document.getElementById('main')
     )

@@ -4,28 +4,17 @@ threadsafe: true
 
 handlers:
 - url: /
-  static_files: www/index.html
-  upload: www/index.html
+  static_files: index.html
+  upload: index.html
 
 - url: /main.wasm
-  static_files: www/main.wasm
   mime_type: application/wasm
-  upload: www/main.wasm
+  static_files: main.wasm
+  upload: main.wasm
 
 - url: /(.*)
-  static_files: www/\1
-  upload: www/(.*)
+  static_files: \1
+  upload: (.*)
 
 skip_files:
-- ^(.*/)?#.*#$
-- ^(.*/)?.*~$
-- ^(.*/)?.*\.py[co]$
-- ^(.*/)?\..*$
-- node_modules/
-- src/
-- index.html
-- package.json
-- package-lock.json
-- webpack.config.js
-- project_name
-- app.yaml
+  - app.yaml

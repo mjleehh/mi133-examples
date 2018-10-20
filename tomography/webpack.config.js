@@ -1,12 +1,15 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
+const path = require('path')
 
+const OUTPUT_FOLDER = 'dist'
 
 module.exports = {
     entry: './src/index.jsx',
     output: {
-        path: __dirname + '/www',
+        path: path.join(__dirname, OUTPUT_FOLDER),
         filename: 'bundle.js',
     },
     module: {
@@ -36,8 +39,9 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     plugins: [
-        new HtmlWebpackPlugin({template: __dirname + '/index.html'}),
-        new CleanWebpackPlugin(['www']),
+        new CleanWebpackPlugin([OUTPUT_FOLDER]),
+        new CopyWebpackPlugin([{from: 'app.yaml'}]),
+        new HtmlWebpackPlugin({template: path.join(__dirname, 'index.html')})
     ],
     devtool: 'source-map',
 }

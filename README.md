@@ -83,6 +83,8 @@ Same user flow as `led-matrix` with MongoDB storage.
 
 `/calculator` 
 
+[view app](https://mi133-calculator.appspot.com/)
+
 A calculator lab assignment solution.
 
 ![calculator screenshot](resources/calculator.png)

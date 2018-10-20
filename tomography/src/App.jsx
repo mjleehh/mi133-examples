@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
-import Calculator from './Calculator'
 import SourceImage from "./SourceImage"
 
 const styles = (theme) => ({
@@ -20,15 +19,13 @@ function App(props) {
         <AppBar position="fixed">
             <ToolBar>
                 <Typography variant="title" color="inherit">
-                    Fibonacci
+                    Tomography
                 </Typography>
             </ToolBar>
         </AppBar>
         </div>
         <div className={classes.toolbar}></div>
-        <Grid container justify="center">
-            <SourceImage module={module}/>
-        </Grid>
+        <SourceImage module={module}/>
     </div>
 }
 

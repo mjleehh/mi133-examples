@@ -4,7 +4,7 @@ import Select from 'react-select'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 
-import 'react-select/dist/react-select.css'
+//import 'react-select/dist/react-select.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-BABEL_ENV=backend npx babel-watch -L src/backend/index.js &
+./scripts/start-backend.sh &
 backendPid=$!
 
-npx webpack-dev-server --mode development --open &
+./scripts/start-app.sh &
 devServerPid=$!
 
 killBackend() {

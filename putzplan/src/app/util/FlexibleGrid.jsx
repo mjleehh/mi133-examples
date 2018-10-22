@@ -1,7 +1,7 @@
 import React from 'react'
-import _ from 'lodash'
 
-import style from './FlexibleGrid.iscss'
+import gridStyle from './FlexibleGrid.iscss'
+
 
 export default function FlexibleGrid(props) {
         const {width, gap, children} = props
@@ -35,11 +35,11 @@ export default function FlexibleGrid(props) {
                 rows.push(<div style={{height: gap}} key={`gap-${i}`}> </div>)
             }
 
-            rows.push(<div style={style.gridRow} key={i}>{row}</div>)
+            rows.push(<div style={gridStyle.gridRow} key={i}>{row}</div>)
 
         }
 
-        return <div style={style.gridContainer}>
+        return <div style={gridStyle.gridContainer}>
             {rows}
         </div>
 }

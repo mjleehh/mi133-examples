@@ -7,3 +7,5 @@ package-lock.json
 coverage
 project_name
 www
+*.cred.*
+.firebaserc

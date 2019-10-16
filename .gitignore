@@ -9,3 +9,4 @@ project_name
 www
 *.cred.*
 .firebaserc
+*.cache

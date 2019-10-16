@@ -39,7 +39,7 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     plugins: [
-        new CleanWebpackPlugin([OUTPUT_FOLDER]),
+        new CleanWebpackPlugin(),
         new CopyWebpackPlugin([{from: 'app.yaml'}]),
         new HtmlWebpackPlugin({template: path.join(__dirname, 'index.html')})
     ],

@@ -1,7 +1,8 @@
 export default function initialState() {
     return {
         user: null,
-        ui: {loginState},
-        data: {},
+        modal: null,
+        notesDirty: true,
+        notes: []
     }
 }

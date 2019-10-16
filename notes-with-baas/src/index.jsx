@@ -16,35 +16,51 @@ import App from './App'
 import apiConfig from './apiconf.cred'
 
 import saga from './saga'
+import Login from "./Login"
+import {BrowserRouter, Switch, Route} from "react-router-dom"
+import {notesChanged} from './actions'
+import reducer from './reducer'
+import * as api from './api'
+
+function loginHandler() {
+    if(window.location === '/login') {
+        window.location = '/'
+    }
+}
+
+function logoutHandler() {
+    if(window.location.pathname !== '/login') {
+        window.location = '/login'
+    }
+}
 
 async function main() {
-    function reducer(state = {}, action) {
-        return state
-    }
-
-    console.log(firebase.firestore)
-
-
-    firebase.initializeApp(apiConfig)
-
-    const db = firebase.firestore()
-    const auth = firebase.auth()
-
-    auth.onAuthStateChanged(user => {
-        if (user && window.location.pathname === '/login') {
-            window.location = '/'
-        } else if (!user && window.location.pathname !== '/login') {
-            window.location = '/login'
-        }
-    })
-
     const sagaMiddleware = createSagaMiddleware()
     const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
-    sagaMiddleware.run(saga(auth))
+
+    function updateNoteHandler(event) {
+        console.log(event.docChanges())
+        const docs = event.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        store.dispatch(notesChanged(docs))
+    }
+    sagaMiddleware.run(saga())
+
+    api.init({
+        updateNoteHandler,
+        loginHandler,
+        logoutHandler,
+    })
+
+
 
     ReactDom.render(
         <Provider store={store}>
-            <App/>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route path="/" component={App}/>
+                </Switch>
+            </BrowserRouter>
         </Provider>,
         document.getElementById('main')
     )
